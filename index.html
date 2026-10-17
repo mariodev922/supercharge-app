@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SUPERCHARGE | Crypto Research</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#071327;color:white;font-family:Arial,sans-serif}
+header{padding:22px 18px;background:#0c2040;border-bottom:1px solid #24436b}
+.logo{color:#55c9ff;font-size:25px;font-weight:bold}
+small{color:#a6c4e4}
+main{max-width:850px;margin:auto;padding:20px}
+.hero{background:linear-gradient(135deg,#163d7b,#0b1c38);padding:25px;border-radius:18px}
+h1{font-size:28px;margin:10px 0}
+p{color:#b6c9e2;line-height:1.5}
+input{width:100%;padding:15px;border:1px solid #365b89;border-radius:10px;background:#071327;color:white;font-size:16px}
+button{background:#39bfff;color:#061426;border:0;border-radius:10px;padding:13px 20px;font-weight:bold;margin-top:12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}
+.card{background:#102747;border:1px solid #24466e;border-radius:14px;padding:18px}
+.card h3{color:#65caff;font-size:16px}
+.card p{font-size:13px}
+#result{margin-top:15px;color:#b6c9e2}
+footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">⚡ SUPERCHARGE</div>
+<small>SCAN • DISCOVER • RESEARCH</small>
+</header>
+<main>
+<section class="hero">
+<small>SOLANA RESEARCH DASHBOARD</small>
+<h1>Know more before you trade.</h1>
+<p>Discover tokens, explore market data and understand potential risks.</p>
+<input id="token" placeholder="Paste Solana token address">
+<button onclick="searchToken()">Search Token</button>
+<div id="result"></div>
+</section>
+<div class="grid">
+<div class="card"><h3>🔎 Coin Radar</h3><p>Token discovery tools coming soon.</p></div>
+<div class="card"><h3>🛡️ Risk Scanner</h3><p>Research risk indicators before trading.</p></div>
+<div class="card"><h3>📈 Market Charts</h3><p>Charts and market data coming soon.</p></div>
+<div class="card"><h3>⭐ Watchlist</h3><p>Track your favourite tokens soon.</p></div>
+</div>
+</main>
+<footer>SUPERCHARGE • Independent crypto research • Not financial advice</footer>
+<script>
+function searchToken(){
+const token=document.getElementById("token").value.trim();
+const result=document.getElementById("result");
+if(!token){result.textContent="Please enter a token address.";return;}
+result.textContent="Live token lookup is not connected yet. Dashboard preview only.";
+}
+</script>
+</body>
+</html>
