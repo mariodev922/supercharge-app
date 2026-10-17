@@ -92,6 +92,7 @@ async function searchToken() {
       "Price: " + money(pair.priceUsd) + "\n" +
       "Liquidity: " + money(pair.liquidity?.usd) + "\n" +
       "24h Volume: " + money(pair.volume?.h24) + "\n" +
+      "24h Change: " + (pair.priceChange?.h24 == null ? "N/A" : pair.priceChange.h24 + "%") + "\n" +
       "Market Cap: " + money(pair.marketCap);
   } catch (error) {
     result.textContent =
