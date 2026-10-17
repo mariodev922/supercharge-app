@@ -83,7 +83,7 @@ async function searchToken() {
 
     const money = n =>
       n == null ? "N/A" :
-      "$" + Number(n).toLocaleString("en-US");
+      Number(n).toLocaleString("en-US", {maximumFractionDigits: 10})
 
     result.style.whiteSpace = "pre-line";
     result.textContent =
