@@ -44,7 +44,13 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
 <div class="card"><h3>📈 Market Charts</h3><p>Charts and market data coming soon.</p></div>
 <div class="card"><h3>⭐ Watchlist</h3><p>Track your favourite tokens soon.</p></div>
 </div>
-</main>
+
+<section style="margin-top:25px;background:#102747;padding:20px;border-radius:16px;">
+  <h2 style="color:#39bfff;">📈 Live Token Chart</h2>
+  <div id="tokenChart">
+    <p>Search for a token to view its chart.</p>
+  </div>
+</section></main>
 <footer>SUPERCHARGE • Independent crypto research • Not financial advice</footer>
 <script>
 async function searchToken() {
@@ -95,6 +101,20 @@ async function searchToken() {
       "24h Volume: " + money(pair.volume?.h24) + "\n" +
       "24h Change: " + (pair.priceChange?.h24 == null ? "N/A" : pair.priceChange.h24 + "%") + "\n" +
       "Market Cap: " + money(pair.marketCap);
+    const chart = document.getElementById("tokenChart");
+if (chart) {
+  chart.innerHTML = "";
+
+  const link = document.createElement("a");
+  link.href = pair.url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = "📈 View live token chart on DexScreener";
+  link.style.color = "#39bfff";
+
+  chart.appendChild(link);
+}
+    
   } catch (error) {
     result.textContent =
       "Could not load market data. Try again.";
