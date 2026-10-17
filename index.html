@@ -86,7 +86,7 @@ async function searchToken() {
       Number(n).toLocaleString("en-US", {maximumFractionDigits: 10})
 
     result.style.whiteSpace = "pre-line";
-    result.style.color = Number(pair.priceChange?.h24) >= 0 ? "#22c55e" : "#ef4444";
+    result.style.color = "white";
     result.textContent =
       "Token: " + (pair.baseToken?.name || "Unknown") + "\n" +
       "Symbol: " + (pair.baseToken?.symbol || "Unknown") + "\n" +
