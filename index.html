@@ -99,6 +99,7 @@ async function searchToken() {
     result.style.color = "white";
     result.style.fontSize = "16px";
     result.style.lineHeight = "1.8";
+const change = Number(pair.priceChange?.h24 || 0);
     result.textContent =
       "Token: " + (pair.baseToken?.name || "Unknown") + "\n" +
       "Symbol: " + (pair.baseToken?.symbol || "Unknown") + "\n" +
