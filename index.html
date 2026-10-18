@@ -40,7 +40,7 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
 <div id="result"></div>
 </section>
 <div class="grid">
-<div class="card"><h3>🔎 Coin Radar</h3><p>Token discovery tools coming soon.</p></div>
+<div class="card"><h3>🔎 Coin Radar</h3><p>Discover recently listed Solana tokens.</p><button onclick="loadCoinRadar()">🔄 Discover Tokens</button><div id="radarResults"></div></div>
 <div class="card"><h3>🛡️ Risk Scanner</h3><p>Research risk indicators before trading.</p><div id="riskResult"></div></div>
   
 <div class="card"><h3>📈 Market Charts</h3><p>Charts and market data coming soon.</p></div>
@@ -167,6 +167,42 @@ function showWatchlist() {
   });
 }
 showWatchlist();
+async function loadCoinRadar() {
+  const box = document.getElementById("radarResults");
+  box.textContent = "Searching for Solana tokens...";
+
+  try {
+    const response = await fetch(
+      "https://api.dexscreener.com/token-profiles/latest/v1"
+    );
+    if (!response.ok) throw new Error("Request failed");
+
+    const tokens = await response.json();
+    const solana = tokens.filter(t => t.chainId === "solana").slice(0, 10);
+
+    box.innerHTML = "";
+
+    if (!solana.length) {
+      box.textContent = "No Solana tokens found. Try again later.";
+      return;
+    }
+
+    solana.forEach(t => {
+      const item = document.createElement("p");
+      const link = document.createElement("a");
+      link.href = "https://dexscreener.com/solana/" +
+        encodeURIComponent(t.tokenAddress);
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "🔎 " + t.tokenAddress.slice(0, 8) + "...";
+      link.style.color = "#39bfff";
+      item.appendChild(link);
+      box.appendChild(item);
+    });
+  } catch (error) {
+    box.textContent = "Could not load tokens. Try again.";
+  }
+}
 </script>
 </body>
 </html>
