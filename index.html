@@ -81,7 +81,8 @@ async function searchToken() {
    
     const pairs = (data.pairs || []).filter(
   p => p.chainId === "solana" &&
-true
+(p.baseToken?.address === token ||
+p.quoteToken?.address === token)
 );
 
     if (!pairs.length) {
