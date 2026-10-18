@@ -117,8 +117,10 @@ const volume = Number(pair.volume?.h24 || 0);
 const warnings = [];
 if (liquidity < 10000) warnings.push("⚠️ Low liquidity");
 if (volume < 1000) warnings.push("⚠️ Low 24h trading volume");
-riskResult.textContent = warnings.length ? warnings.join(" | ") : "✅ Basic checks passed. Liquidity and 24h volume exceed initial thresholds. This is not a full security audit.";
+    const priceChange = Number(pair.priceChange?.h24 || 0);
+if (priceChange <= -30) warnings.push("⚠️ Price dropped 30% or more in 24h");
 riskResult.style.color = "white";
+riskResult.textContent = warnings.length ? warnings.join(" | ") : "✅ Basic checks passed. Liquidity and 24h volume exceed initial thresholds. This is not a full security audit.";
     const chart = document.getElementById("tokenChart");
 if (chart) {
   chart.innerHTML = "";
