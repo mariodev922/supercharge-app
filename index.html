@@ -200,6 +200,7 @@ async function loadCoinRadar() {
       item.style.padding = "12px";
      item.style.background = "#163d7b";
       item.style.borderRadius = "10px";
+      item.append("🪙 " + (t.name || t.tokenAddress.slice(0, 8)));
       item.appendChild(link);
       box.appendChild(item);
     });
