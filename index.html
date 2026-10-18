@@ -188,7 +188,7 @@ async function loadCoinRadar() {
     }
 
     solana.forEach(t => {
-      const item = document.createElement("p");
+      const item = document.createElement("div");
       const link = document.createElement("a");
       link.href = "https://dexscreener.com/solana/" +
         encodeURIComponent(t.tokenAddress);
@@ -196,6 +196,10 @@ async function loadCoinRadar() {
       link.rel = "noopener noreferrer";
       link.textContent = "🔎 " + t.tokenAddress.slice(0, 8) + "...";
       link.style.color = "#39bfff";
+     item.style.marginBottom = "15px"; 
+      item.style.padding = "12px";
+     item.style.background = "#163d7b";
+      item.style.borderRadius = "10px";
       item.appendChild(link);
       box.appendChild(item);
     });
