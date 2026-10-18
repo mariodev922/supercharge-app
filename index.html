@@ -201,6 +201,7 @@ async function loadCoinRadar() {
      item.style.background = "#163d7b";
       item.style.borderRadius = "10px";
       item.append("🪙 " + (t.name || t.tokenAddress.slice(0, 8)));
+      item.append(" • " + (t.symbol || "New Token"));
       item.appendChild(link);
       box.appendChild(item);
     });
