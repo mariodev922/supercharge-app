@@ -126,19 +126,12 @@ riskResult.textContent = warnings.length ? warnings.join(" | ") : "✅ Basic che
 if (chart) {
   chart.innerHTML = "";
 
-  const link = document.createElement("a");
-  link.href = pair.url;
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.textContent = "📈 View live token chart on DexScreener";
-  link.style.color = "#39bfff";
 
-  chart.appendChild(link);
 
     const frame = document.createElement("iframe");
 frame.src = "https://www.geckoterminal.com/solana/pools/" + encodeURIComponent(pair.pairAddress) + "?embed=1&info=0&swaps=0";
 frame.style.width = "100%";
-frame.style.height = "420px";
+frame.style.height = "550px";
 frame.style.border = "0";
 frame.style.marginTop = "15px";
 frame.title = "Live token chart";
