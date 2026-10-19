@@ -195,6 +195,12 @@ fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(toke
     if (pair) {
       item.firstChild.textContent =
         pair.baseToken.name + " (" + pair.baseToken.symbol + ")";
+    if (pair.priceUsd) {
+  item.firstChild.textContent +=
+    " | $" + Number(pair.priceUsd).toLocaleString("en-US", {
+      maximumSignificantDigits: 6
+    });
+} 
     }
   })
   .catch(() => {});
