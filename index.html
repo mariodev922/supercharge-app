@@ -193,6 +193,16 @@ fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(toke
       p.baseToken?.address === token
     );
     if (pair) {
+     if (pair.info?.imageUrl) {
+  const logo = document.createElement("img");
+  logo.src = pair.info.imageUrl;
+  logo.style.width = "24px";
+  logo.style.height = "24px";
+  logo.style.borderRadius = "50%";
+  logo.style.verticalAlign = "middle";
+  logo.style.marginRight = "8px";
+  item.firstChild.parentNode.insertBefore(logo, item.firstChild.nextSibling);
+}
       item.firstChild.textContent =
         pair.baseToken.name + " (" + pair.baseToken.symbol + ")";
     if (pair.priceUsd) {
