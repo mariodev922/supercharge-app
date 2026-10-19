@@ -184,6 +184,16 @@ function showWatchlist() {
   saved.forEach(token => {
     const item = document.createElement("p");
     item.textContent = token.slice(0, 8) + "...";
+   item.style.cursor = "pointer";
+item.style.color = "#39bfff";
+item.title = "Tap to view token chart";
+item.onclick = () => {
+  document.getElementById("token").value = token;
+  searchToken();
+  document.getElementById("tokenChart").scrollIntoView({
+    behavior: "smooth"
+  });
+};
     list.appendChild(item);
   });
 }
