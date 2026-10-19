@@ -118,6 +118,9 @@ p.quoteToken?.address === token)
     result.style.color = "white";
     result.style.fontSize = "16px";
     result.style.lineHeight = "1.8";
+   result.style.padding = "16px";
+result.style.background = "#102747";
+result.style.borderRadius = "12px";
 const change = Number(pair.priceChange?.h24 || 0);
     result.textContent =
       "Token: " + (pair.baseToken?.name || "Unknown") + "\n" +
