@@ -193,7 +193,13 @@ const tokenDetails = await Promise.all(
         p => p.chainId === "solana" &&
         p.baseToken?.address === t.tokenAddress
       );
-      return pair?.baseToken || null;
+      
+return pair ? {
+  ...pair.baseToken,
+  marketCap: pair.marketCap ?? pair.fdv,
+  liquidity: pair.liquidity?.usd
+} : null;
+
     } catch {
       return null;
     }
@@ -211,10 +217,19 @@ const tokenDetails = await Promise.all(
     
 solana.forEach((t, i) => {
   const details = tokenDetails[i];
+  
+
+
   if (details) {
     t.name = details.name;
     t.symbol = details.symbol;
   }
+ 
+if (details) {
+  t.marketCap = details.marketCap;
+  t.liquidity = details.liquidity;
+}
+ 
 
       const item = document.createElement("div");
       const link = document.createElement("a");
@@ -231,6 +246,24 @@ solana.forEach((t, i) => {
       item.append("🪙 " + (t.name || t.tokenAddress.slice(0, 8)));
       item.append(" • " + (t.symbol || "New Token"));
       item.appendChild(link);
+  
+const stats = document.createElement("div");
+stats.style.marginTop = "8px";
+stats.style.color = "#ffffff";
+stats.style.fontSize = "14px";
+
+const money = n => typeof n === "number"
+  ? "$" + n.toLocaleString("en-US", {
+      maximumFractionDigits: 0
+    })
+  : "N/A";
+
+stats.textContent =
+  "Market Cap: " + money(t.marketCap) +
+  " | Liquidity: " + money(t.liquidity);
+
+item.appendChild(stats);
+
       box.appendChild(item);
     });
   } catch (error) {
