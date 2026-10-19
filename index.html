@@ -183,7 +183,8 @@ function showWatchlist() {
   list.textContent = "";
   saved.forEach(token => {
     const item = document.createElement("p");
-    item.textContent = token.slice(0, 8) + "...";
+    item.innerHTML = '<span class="token-info"></span>';
+item.querySelector(".token-info").textContent = token.slice(0, 8) + "...";
 
 fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(token))
   .then(response => response.json())
@@ -201,12 +202,12 @@ fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(toke
   logo.style.borderRadius = "50%";
   logo.style.verticalAlign = "middle";
   logo.style.marginRight = "8px";
-  item.firstChild.parentNode.insertBefore(logo, item.firstChild.nextSibling);
+  item.insertBefore(logo, item.firstChild);
 }
-      item.firstChild.textContent =
+      item.querySelector(".token-info").textContent =
         pair.baseToken.name + " (" + pair.baseToken.symbol + ")";
     if (pair.priceUsd) {
-  item.firstChild.textContent +=
+  item.querySelector(".token-info").textContent +=
     " | $" + Number(pair.priceUsd).toLocaleString("en-US", {
       maximumSignificantDigits: 6
     });
