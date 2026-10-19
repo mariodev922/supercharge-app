@@ -40,7 +40,12 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
 <div id="result"></div>
 </section>
 <div class="grid">
-<div class="card"><h3>🔎 Coin Radar</h3><p>Discover recently listed Solana tokens.</p><button onclick="loadCoinRadar()">🔄 Discover Tokens</button><div id="radarResults"></div></div>
+<div class="card"><h3>🔎 Coin Radar</h3><p>Discover recently listed Solana tokens.</p><button onclick="loadCoinRadar()">🔄 Discover Tokens</button>
+ <div style="margin:12px 0">
+  <input id="minMarketCap" type="number" min="0" placeholder="Min Market Cap ($)">
+  <input id="minLiquidity" type="number" min="0" placeholder="Min Liquidity ($)">
+</div> 
+  <div id="radarResults"></div></div>
 <div class="card"><h3>🛡️ Risk Scanner</h3><p>Research risk indicators before trading.</p><div id="riskResult"></div></div>
   
 <div class="card"><h3>📈 Market Charts</h3><p>Charts and market data coming soon.</p></div>
@@ -239,7 +244,11 @@ if (details) {
 t.priceChange24h = details.priceChange24h;
  
 }
- 
+const minCap = Number(document.getElementById("minMarketCap").value) || 0;
+const minLiq = Number(document.getElementById("minLiquidity").value) || 0;
+
+if (minCap > 0 && !(Number.isFinite(t.marketCap) && t.marketCap >= minCap)) return;
+if (minLiq > 0 && !(Number.isFinite(t.liquidity) && t.liquidity >= minLiq)) return; 
 
       const item = document.createElement("div");
       const link = document.createElement("a");
