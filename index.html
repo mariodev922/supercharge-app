@@ -281,7 +281,8 @@ change.style.color =
 change.textContent = "24h Change: " +
   (t.priceChange24h == null
     ? "N/A"
-    : Number(t.priceChange24h).toFixed(2) + "%");
+    : (Number(t.priceChange24h) > 0 ? "+" : "") +
+Number(t.priceChange24h).toFixed(2) + "%");
 stats.appendChild(change);
 
 
