@@ -184,6 +184,20 @@ function showWatchlist() {
   saved.forEach(token => {
     const item = document.createElement("p");
     item.textContent = token.slice(0, 8) + "...";
+
+fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(token))
+  .then(response => response.json())
+  .then(data => {
+    const pair = (data.pairs || []).find(
+      p => p.chainId === "solana" &&
+      p.baseToken?.address === token
+    );
+    if (pair) {
+      item.firstChild.textContent =
+        pair.baseToken.name + " (" + pair.baseToken.symbol + ")";
+    }
+  })
+  .catch(() => {});
    item.style.cursor = "pointer";
 item.style.color = "#39bfff";
 item.title = "Tap to view token chart";
