@@ -125,11 +125,10 @@ const change = Number(pair.priceChange?.h24 || 0);
     result.textContent =
       "Token: " + (pair.baseToken?.name || "Unknown") + "\n" +
       "Symbol: " + (pair.baseToken?.symbol || "Unknown") + "\n" +
-      "Price: " + money(pair.priceUsd) + "\n" +
-      "Liquidity: " + money(pair.liquidity?.usd) + "\n" +
-      "24h Volume: " + money(pair.volume?.h24) + "\n" +
+ "Price: $" + money(pair.priceUsd) + "\n" + "Liquidity: $" + money(pair.liquidity?.usd) + "\n" +
+     "24h Volume: $" + money(pair.volume?.h24)
       "24h Change: " + (pair.priceChange?.h24 == null ? "N/A" : pair.priceChange.h24 + "%") + "\n" +
-      "Market Cap: " + money(pair.marketCap);
+    "Market Cap: $" + money(pair.marketCap);
    const riskResult = document.getElementById("riskResult");
 const liquidity = Number(pair.liquidity?.usd || 0);
 const volume = Number(pair.volume?.h24 || 0);
