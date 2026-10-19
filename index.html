@@ -225,6 +225,9 @@ item.onclick = () => {
 const removeBtn = document.createElement("button");
 removeBtn.textContent = "🗑️ Remove";
 removeBtn.style.marginLeft = "12px";
+   removeBtn.style.display = "block";
+removeBtn.style.marginTop = "12px";
+removeBtn.style.marginLeft = "0";
 removeBtn.onclick = () => {
   const updated = saved.filter(t => t !== token);
   localStorage.setItem(
