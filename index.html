@@ -51,7 +51,13 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
  <button onclick="scanRisk()">🛡️ Scan Token Risk</button>
   <div id="riskResult"></div></div>
   
-<div class="card"><h3>📈 Market Charts</h3><p>Charts and market data coming soon.</p></div>
+<div class="card">
+  <h3>📈 Market Charts</h3>
+  <p>Explore live Solana token charts.</p>
+  <button onclick="document.getElementById('tokenChart').scrollIntoView({behavior:'smooth'})">
+    📊 View Live Chart
+  </button>
+</div>
 <div class="card"><h3>⭐ Watchlist</h3><p>Save your favourite Solana tokens.</p><button onclick="saveToken()">⭐ Save Token</button><div id="watchlist"></div></div>
 </div>
 
