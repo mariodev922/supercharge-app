@@ -197,7 +197,10 @@ const tokenDetails = await Promise.all(
 return pair ? {
   ...pair.baseToken,
   marketCap: pair.marketCap ?? pair.fdv,
-  liquidity: pair.liquidity?.usd
+  
+liquidity: pair.liquidity?.usd,
+volume24h: pair.volume?.h24
+
 } : null;
 
     } catch {
@@ -260,7 +263,8 @@ const money = n => typeof n === "number"
 
 stats.textContent =
   "Market Cap: " + money(t.marketCap) +
-  " | Liquidity: " + money(t.liquidity);
+  " | Liquidity: " + money(t.liquidity) +
+" | 24h Volume: " + money(t.volume24h);
 
 item.appendChild(stats);
 
