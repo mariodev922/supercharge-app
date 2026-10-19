@@ -130,7 +130,14 @@ if (volume < 1000) warnings.push("⚠️ Low 24h trading volume");
     const priceChange = Number(pair.priceChange?.h24 || 0);
 if (priceChange <= -30) warnings.push("⚠️ Price dropped 30% or more in 24h");
 riskResult.style.color = "white";
-riskResult.textContent = warnings.length ? warnings.join(" | ") : "✅ Basic checks passed. Liquidity and 24h volume exceed initial thresholds. This is not a full security audit.";
+riskResult.textContent =
+  "💧 Liquidity: $" + liquidity.toLocaleString() +
+  "\n📊 24h Volume: $" + volume.toLocaleString() +
+  "\n📉 24h Price Change: " + priceChange.toFixed(2) + "%" +
+  "\n\n🛡️ Risk Indicators: " +
+  (warnings.length ? warnings.join(" | ") : "✅ No basic market warnings detected.") +
+  "\n\n⚠️ This is not a full security audit.";
+riskResult.style.whiteSpace = "pre-line";
     const chart = document.getElementById("tokenChart");
 if (chart) {
   chart.innerHTML = "";
