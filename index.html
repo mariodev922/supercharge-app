@@ -179,6 +179,27 @@ async function loadCoinRadar() {
 
     const tokens = await response.json();
     const solana = tokens.filter(t => t.chainId === "solana").slice(0, 10);
+  
+const tokenDetails = await Promise.all(
+  solana.map(async (t) => {
+    try {
+      const res = await fetch(
+        "https://api.dexscreener.com/latest/dex/tokens/" +
+        encodeURIComponent(t.tokenAddress)
+      );
+      if (!res.ok) return null;
+      const data = await res.json();
+      const pair = data.pairs?.find(
+        p => p.chainId === "solana" &&
+        p.baseToken?.address === t.tokenAddress
+      );
+      return pair?.baseToken || null;
+    } catch {
+      return null;
+    }
+  })
+);
+    
 
     box.innerHTML = "";
 
@@ -187,7 +208,14 @@ async function loadCoinRadar() {
       return;
     }
 
-    solana.forEach(t => {
+    
+solana.forEach((t, i) => {
+  const details = tokenDetails[i];
+  if (details) {
+    t.name = details.name;
+    t.symbol = details.symbol;
+  }
+
       const item = document.createElement("div");
       const link = document.createElement("a");
       link.href = "https://dexscreener.com/solana/" +
