@@ -199,7 +199,10 @@ return pair ? {
   marketCap: pair.marketCap ?? pair.fdv,
   
 liquidity: pair.liquidity?.usd,
-volume24h: pair.volume?.h24
+volume24h: pair.volume?.h24,
+
+priceChange24h: pair.priceChange?.h24
+  
 
 } : null;
 
@@ -232,6 +235,9 @@ if (details) {
   t.marketCap = details.marketCap;
   t.liquidity = details.liquidity;
  t.volume24h = details.volume24h; 
+ 
+t.priceChange24h = details.priceChange24h;
+ 
 }
  
 
@@ -266,6 +272,18 @@ stats.textContent =
   "Market Cap: " + money(t.marketCap) +
   " | Liquidity: " + money(t.liquidity) +
 " | 24h Volume: " + money(t.volume24h);
+  
+const change = document.createElement("div");
+change.style.marginTop = "6px";
+change.style.color =
+  Number(t.priceChange24h) > 0 ? "#00ff88" :
+  Number(t.priceChange24h) < 0 ? "#ff5555" : "#ffffff";
+change.textContent = "24h Change: " +
+  (t.priceChange24h == null
+    ? "N/A"
+    : Number(t.priceChange24h).toFixed(2) + "%");
+stats.appendChild(change);
+
 
 item.appendChild(stats);
 
