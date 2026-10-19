@@ -306,6 +306,18 @@ item.appendChild(stats);
     box.textContent = "Could not load tokens. Try again.";
   }
 }
+function scanRisk() {
+  const token = document.getElementById("token").value.trim();
+  const riskResult = document.getElementById("riskResult");
+
+  if (!token) {
+    riskResult.textContent = "⚠️ Enter a Solana token address first.";
+    return;
+  }
+
+  riskResult.textContent = "🔍 Checking token market data...";
+  searchToken();
+}
 </script>
 </body>
 </html>
