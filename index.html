@@ -201,6 +201,14 @@ fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(toke
       maximumSignificantDigits: 6
     });
 } 
+   if (pair.priceChange?.h24 != null) {
+  const change = Number(pair.priceChange.h24);
+  const changeLabel = document.createElement("span");
+  changeLabel.textContent =
+    " | " + (change >= 0 ? "+" : "") + change.toFixed(2) + "%";
+  changeLabel.style.color = change >= 0 ? "#22c55e" : "#ef4444";
+  item.appendChild(changeLabel);
+}  
     }
   })
   .catch(() => {});
