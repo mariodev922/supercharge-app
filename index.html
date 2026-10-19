@@ -194,6 +194,18 @@ item.onclick = () => {
     behavior: "smooth"
   });
 };
+const removeBtn = document.createElement("button");
+removeBtn.textContent = "🗑️ Remove";
+removeBtn.style.marginLeft = "12px";
+removeBtn.onclick = () => {
+  const updated = saved.filter(t => t !== token);
+  localStorage.setItem(
+    "superchargeWatchlist",
+    JSON.stringify(updated)
+  );
+  showWatchlist();
+};
+item.appendChild(removeBtn);   
     list.appendChild(item);
   });
 }
