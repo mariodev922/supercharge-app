@@ -46,7 +46,10 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
   <input id="minLiquidity" type="number" min="0" placeholder="Min Liquidity ($)">
 </div> 
   <div id="radarResults"></div></div>
-<div class="card"><h3>🛡️ Risk Scanner</h3><p>Research risk indicators before trading.</p><div id="riskResult"></div></div>
+
+ <div class="card"><h3>🛡️ Risk Scanner</h3><p>Research risk indicators before trading.</p>
+ <button onclick="scanRisk()">🛡️ Scan Token Risk</button>
+  <div id="riskResult"></div></div>
   
 <div class="card"><h3>📈 Market Charts</h3><p>Charts and market data coming soon.</p></div>
 <div class="card"><h3>⭐ Watchlist</h3><p>Save your favourite Solana tokens.</p><button onclick="saveToken()">⭐ Save Token</button><div id="watchlist"></div></div>
