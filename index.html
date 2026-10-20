@@ -46,7 +46,15 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
   <input id="minLiquidity" type="number" min="0" placeholder="Min Liquidity ($)">
 </div> 
   <div id="radarResults"></div></div>
-
+<div class="card">
+  <h3>🚨 New Token Alerts</h3>
+  <p>Spot newly discovered Solana tokens.</p>
+  <button onclick="loadCoinRadar()">
+    🔄 Check New Tokens
+  </button>
+  <p>Use Coin Radar above to review market cap, liquidity and trading activity.</p>
+  <small>Manual checks only. Not real-time notifications.</small>
+</div>
  <div class="card"><h3>🛡️ Risk Scanner</h3><p>Research risk indicators before trading.</p>
  <button onclick="scanRisk()">🛡️ Scan Token Risk</button>
   <div id="riskResult"></div></div>
