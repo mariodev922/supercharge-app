@@ -484,7 +484,11 @@ async function loadNewTokenAlerts() {
       t => t.chainId === "solana"
     ).slice(0, 10);
    const addresses = solana.map(t => t.tokenAddress).join(",");
-const pairResponse = await fetch(
+if (!solana.length) {
+  box.textContent = "No new Solana tokens found. Try again later.";
+  return;
+}
+   const pairResponse = await fetch(
   "https://api.dexscreener.com/latest/dex/tokens/" + addresses
 );
 const pairData = pairResponse.ok ? await pairResponse.json() : { pairs: [] };
