@@ -385,18 +385,70 @@ item.appendChild(stats);
     box.textContent = "Could not load tokens. Try again.";
   }
 }
-function scanRisk() {
+async function scanRisk() {
   const token = document.getElementById("token").value.trim();
-  const riskResult = document.getElementById("riskResult");
+  const result = document.getElementById("riskResult");
 
   if (!token) {
-    riskResult.textContent = "⚠️ Enter a Solana token address first.";
+    result.textContent = "⚠️ Enter a Solana token address first.";
     return;
   }
 
-  riskResult.textContent = "🔍 Checking token market data...";
-  searchToken();
+  result.textContent = "🔍 Checking market data...";
+
+  try {
+    const response = await fetch(
+      "https://api.dexscreener.com/latest/dex/tokens/" +
+      encodeURIComponent(token)
+    );
+    if (!response.ok) throw new Error("Request failed");
+
+    const data = await response.json();
+    const pair = data.pairs?.find(p =>
+      p.chainId === "solana" &&
+      p.baseToken?.address === token
+    );
+
+    if (!pair) {
+      result.textContent = "⚠️ No Solana trading pair found. Risk cannot be assessed.";
+      return;
+    }
+
+    const liquidity = pair.liquidity?.usd;
+    const volume = pair.volume?.h24;
+    const marketCap = pair.marketCap ?? pair.fdv;
+    const warnings = [];
+
+    if (liquidity == null) {
+      warnings.push("Liquidity data unavailable");
+    } else if (liquidity < 10000) {
+      warnings.push("Low liquidity: under $10,000");
+    }
+
+    if (volume == null) {
+      warnings.push("Volume data unavailable");
+    } else if (volume < 1000) {
+      warnings.push("Low 24h trading volume");
+    }
+
+    if (marketCap == null) {
+      warnings.push("Market cap unavailable");
+    }
+
+    result.textContent =
+      "🔍 Market Risk Indicators\n" +
+      "Liquidity: " + (liquidity == null ? "N/A" : "$" + liquidity.toLocaleString()) + "\n" +
+      "24h Volume: " + (volume == null ? "N/A" : "$" + volume.toLocaleString()) + "\n" +
+      "Market Cap/FDV: " + (marketCap == null ? "N/A" : "$" + marketCap.toLocaleString()) + "\n" +
+      (warnings.length ? "⚠️ " + warnings.join("; ") : "No low-liquidity or low-volume flags detected.") +
+      "\nMarket data only. Contract, holder and liquidity-lock risks are not verified.";
+
+    result.style.whiteSpace = "pre-line";
+  } catch (error) {
+    result.textContent = "⚠️ Could not check market data. Try again.";
+  }
 }
+
 </script>
 </body>
 </html>
