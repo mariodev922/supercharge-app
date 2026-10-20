@@ -265,7 +265,7 @@ async function loadCoinRadar() {
     if (!response.ok) throw new Error("Request failed");
 
     const tokens = await response.json();
-    const solana = tokens.filter(t => t.chainId === "solana").slice(0, 10);
+    const solana = tokens.filter(t => t.chainId === "solana").slice(0, 20);
   
 const tokenDetails = await Promise.all(
   solana.map(async (t) => {
