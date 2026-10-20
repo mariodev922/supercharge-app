@@ -538,7 +538,7 @@ const market = tokenMarketData[t.tokenAddress];
   box.appendChild(item);
 });
   } catch (error) {
-    box.textContent = "Could not load tokens. Try again.";
+    box.textContent = "Error: " + error.message;
   }
 }
 </script>
