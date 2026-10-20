@@ -491,11 +491,21 @@ async function loadNewTokenAlerts() {
       return;
     }
 
-    solana.forEach(t => {
-      const item = document.createElement("p");
-      item.textContent = "🆕 " + t.tokenAddress;
-      box.appendChild(item);
-    });
+  solana.forEach(t => {
+  const item = document.createElement("p");
+  const link = document.createElement("a");
+
+  link.href = "https://dexscreener.com/solana/" +
+    encodeURIComponent(t.tokenAddress);
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.textContent = "🆕 View Token: " +
+    t.tokenAddress.slice(0, 8) + "...";
+
+  link.style.color = "#39bfff";
+  item.appendChild(link);
+  box.appendChild(item);
+});
   } catch (error) {
     box.textContent = "Could not load tokens. Try again.";
   }
