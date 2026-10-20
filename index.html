@@ -361,7 +361,7 @@ const age = Date.now() - pairCreated;
 
 if (pairCreated > 0 && age >= 0 && age < 86400000) {
   const newBadge = document.createElement("span");
-  newBadge.textContent = " 🆕 NEW";
+  newBadge.textContent = " NEW · " + (age < 3600000 ? Math.floor(age / 60000) + "m ago" : Math.floor(age / 3600000) + "h ago");
   newBadge.style.color = "#00ff88";
   newBadge.style.fontWeight = "bold";
   item.appendChild(newBadge);
