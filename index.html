@@ -483,6 +483,18 @@ async function loadNewTokenAlerts() {
     const solana = tokens.filter(
       t => t.chainId === "solana"
     ).slice(0, 10);
+   const addresses = solana.map(t => t.tokenAddress).join(",");
+const pairResponse = await fetch(
+  "https://api.dexscreener.com/latest/dex/tokens/" + addresses
+);
+const pairData = pairResponse.ok ? await pairResponse.json() : { pairs: [] };
+const tokenNames = {};
+
+(pairData.pairs || []).forEach(pair => {
+  if (pair.chainId === "solana" && pair.baseToken) {
+    tokenNames[pair.baseToken.address] = pair.baseToken.name;
+  }
+});
 
     box.textContent = "";
 
@@ -500,7 +512,7 @@ async function loadNewTokenAlerts() {
   link.target = "_blank";
   link.rel = "noopener noreferrer";
 link.textContent = "🆕 " +
-  (t.name || t.symbol || "New Token") +
+(tokenNames[t.tokenAddress] || t.name || t.symbol || "New Token") +
   " • View Token: " +
   t.tokenAddress.slice(0, 8) + "...";
 
