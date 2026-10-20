@@ -355,6 +355,11 @@ if (minLiq > 0 && !(Number.isFinite(t.liquidity) && t.liquidity >= minLiq)) retu
       item.append("🪙 " + (t.name || t.tokenAddress.slice(0, 8)));
       item.append(" • " + (t.symbol || "New Token"));
       item.appendChild(link);
+ const newBadge = document.createElement("span");
+newBadge.textContent = " 🆕 NEW";
+newBadge.style.color = "#00ff88";
+newBadge.style.fontWeight = "bold";
+item.appendChild(newBadge);
   
 const stats = document.createElement("div");
 stats.style.marginTop = "8px";
