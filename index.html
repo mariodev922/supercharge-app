@@ -553,6 +553,11 @@ const market = tokenMarketData[t.tokenAddress];
   <p style="font-size:13px;color:#a8bed4;">Preview only — submissions and payments are not enabled.</p>
 <button type="button" onclick="checkBoostToken()" style="margin-top:15px;padding:14px 20px;background:#00bfff;color:#00152b;border:0;border-radius:10px;font-weight:bold;">🚀 Check Token Address</button>
 <p id="boostMessage"></p>
+<div id="boostPreview" style="display:none;background:#063b69;padding:18px;margin-top:15px;border-radius:12px;border:1px solid #39bfff;">
+  <strong style="color:#39bfff;">🚀 Sponsored Listing Preview</strong>
+  <p id="boostPreviewToken" style="overflow-wrap:anywhere;"></p>
+  <p style="color:#a8bed4;">Sponsored • Preview only • Not published</p>
+</div>
 </div>
 </section>
 <script>
@@ -568,6 +573,8 @@ function checkBoostToken() {
 
   message.textContent = "✅ Address format looks valid. BOOST is still in preview mode.";
   message.style.color = "#43e6a0";
+document.getElementById("boostPreviewToken").textContent = token;
+document.getElementById("boostPreview").style.display = "block";
 }
 </script>
 </body>
