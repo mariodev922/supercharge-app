@@ -499,6 +499,14 @@ const marketRiskRating =
       "\nMarket data only. Contract, holder and liquidity-lock risks are not verified.";
 result.textContent += "\n\n🔐 Wallet Transparency: Holder concentration not yet verified."; 
     result.style.whiteSpace = "pre-line";
+   const holderBox = document.getElementById("holderResults");
+
+if (holderBox) {
+  holderBox.textContent =
+    "🔎 Token selected: " + token +
+    "\n⚪ Holder data not connected yet.";
+  holderBox.style.whiteSpace = "pre-line";
+}
   } catch (error) {
     result.textContent = "⚠️ Could not check market data. Try again.";
   }
