@@ -478,7 +478,7 @@ const marketRiskRating =
     result.textContent =
      "🔍 Market Risk Indicators\n" +
 "Market Risk Rating: " + marketRiskRating + "\n" +
-"Based on liquidity and 24h volume only.\n\n" +
+"Based on liquidity, 24h volume and liquidity-to-market-cap ratio.\n\n" +
       "Liquidity: " + (liquidity == null ? "N/A" : "$" + liquidity.toLocaleString()) + "\n" +
       "24h Volume: " + (volume == null ? "N/A" : "$" + volume.toLocaleString()) + "\n" +
       "Market Cap/FDV: " + (marketCap == null ? "N/A" : "$" + marketCap.toLocaleString()) + "\n" +
