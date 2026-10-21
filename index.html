@@ -471,7 +471,7 @@ const marketRiskRating =
     ? "⚪ Insufficient market data"
     : liquidity < 10000 || volume < 1000
       ? "🔴 Higher market risk"
-      : liquidity < 50000 || volume < 10000
+      : liquidity < 50000 || volume < 10000 || (liquidityRatio !== null && liquidityRatio < 1)
         ? "🟠 Caution"
         : "🟢 No elevated market-risk flags";
 
