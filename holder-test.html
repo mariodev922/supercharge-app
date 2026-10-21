@@ -29,7 +29,10 @@ params: ["DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"]
           })
         });
 
-        if (!response.ok) throw new Error("HTTP " + response.status);
+        if (!response.ok) {
+  const details = await response.text();
+  throw new Error("HTTP " + response.status + ": " + details.slice(0, 300));
+}
         const data = await response.json();
 
         result.textContent = JSON.stringify(data, null, 2);
