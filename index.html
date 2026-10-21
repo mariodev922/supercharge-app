@@ -440,6 +440,12 @@ if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token)) {
     const liquidity = pair.liquidity?.usd;
     const volume = pair.volume?.h24;
     const marketCap = pair.marketCap ?? pair.fdv;
+   const liquidityRatio =
+  liquidity != null &&
+  marketCap != null &&
+  marketCap > 0
+    ? (liquidity / marketCap) * 100
+    : null;
     const warnings = [];
 
     if (liquidity == null) {
@@ -474,7 +480,8 @@ const marketRiskRating =
       "Liquidity: " + (liquidity == null ? "N/A" : "$" + liquidity.toLocaleString()) + "\n" +
       "24h Volume: " + (volume == null ? "N/A" : "$" + volume.toLocaleString()) + "\n" +
       "Market Cap/FDV: " + (marketCap == null ? "N/A" : "$" + marketCap.toLocaleString()) + "\n" +
-      (warnings.length ? "⚠️ " + warnings.join("; ") : "No low-liquidity or low-volume flags detected.") +
+"Liquidity / Market Cap: " + (liquidityRatio == null ? "N/A" : liquidityRatio.toFixed(2) + "%") + "\n" +
+     (warnings.length ? "⚠️ " + warnings.join("; ") : "No low-liquidity or low-volume flags detected.") +
       "\nMarket data only. Contract, holder and liquidity-lock risks are not verified.";
 result.textContent += "\n\n🔐 Wallet Transparency: Holder concentration not yet verified."; 
     result.style.whiteSpace = "pre-line";
