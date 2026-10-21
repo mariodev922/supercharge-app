@@ -458,8 +458,19 @@ if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token)) {
       warnings.push("Market cap unavailable");
     }
 
+const marketRiskRating =
+  liquidity == null || volume == null
+    ? "⚪ Insufficient market data"
+    : liquidity < 10000 || volume < 1000
+      ? "🔴 Higher market risk"
+      : liquidity < 50000 || volume < 10000
+        ? "🟠 Caution"
+        : "🟢 No elevated market-risk flags";
+
     result.textContent =
-      "🔍 Market Risk Indicators\n" +
+     "🔍 Market Risk Indicators\n" +
+"Market Risk Rating: " + marketRiskRating + "\n" +
+"Based on liquidity and 24h volume only.\n\n" +
       "Liquidity: " + (liquidity == null ? "N/A" : "$" + liquidity.toLocaleString()) + "\n" +
       "24h Volume: " + (volume == null ? "N/A" : "$" + volume.toLocaleString()) + "\n" +
       "Market Cap/FDV: " + (marketCap == null ? "N/A" : "$" + marketCap.toLocaleString()) + "\n" +
