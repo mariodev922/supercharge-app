@@ -557,6 +557,7 @@ const market = tokenMarketData[t.tokenAddress];
   <strong style="color:#39bfff;">🚀 Sponsored Listing Preview</strong>
   <p id="boostPreviewToken" style="overflow-wrap:anywhere;"></p>
  <p id="boostPreviewName" style="color:#ffffff;font-weight:bold;"></p>
+ <p id="boostPreviewMarket" style="color:#a8bed4;"></p>
   <p style="color:#a8bed4;">Sponsored • Preview only • Not published</p>
 </div>
 </div>
@@ -590,6 +591,7 @@ fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(toke
     document.getElementById("boostPreviewName").textContent = pair
       ? pair.baseToken.name + " (" + pair.baseToken.symbol + ")"
       : "Token details unavailable";
+document.getElementById("boostPreviewMarket").textContent = pair ? "Market Cap: $" + (pair.marketCap ?? pair.fdv ?? "N/A") + " | Liquidity: $" + (pair.liquidity?.usd ?? "N/A") : "Market data unavailable";
   })
   .catch(() => {
     document.getElementById("boostPreviewName").textContent =
