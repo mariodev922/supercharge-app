@@ -472,7 +472,7 @@ result.textContent += "\n\n🔐 Wallet Transparency: Holder concentration not ye
   }
 }
 function checkHolderConcentration(top10Percent) {
-  if (top10Percent == null) {
+ if (top10Percent == null || typeof top10Percent !== "number" || !Number.isFinite(top10Percent) || top10Percent < 0 || top10Percent > 100) {
     return "⚪ Holder data unavailable";
   }
 
