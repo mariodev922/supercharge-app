@@ -67,6 +67,9 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
     ⚪ Holder data not connected yet.
     Blockchain verification coming soon.
   </div>
+ <button onclick="testSolanaConnection().then(ok => alert(ok ? '✅ Solana connection successful!' : '⚠️ Solana connection failed.'))">
+  🔗 Test Solana Connection
+</button>
   <small>
     Holder concentration alone cannot determine whether a token is safe.
   </small>
