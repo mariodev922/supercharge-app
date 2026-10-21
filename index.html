@@ -595,7 +595,7 @@ fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(toke
 document.getElementById("boostPreviewMarket").textContent =
   pair
     ? "Market Cap: $" + formatMoney(pair.marketCap ?? pair.fdv) +
-      " | Liquidity: $" + formatMoney(pair.liquidity?.usd)
+      " | Liquidity: $" + formatMoney(pair.liquidity?.usd)+ " | 24h Volume: $" + formatMoney(pair.volume?.h24)
     : "Market data unavailable";
 
   })
