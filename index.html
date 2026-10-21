@@ -468,7 +468,21 @@ async function scanRisk() {
     result.textContent = "⚠️ Could not check market data. Try again.";
   }
 }
+function checkHolderConcentration(top10Percent) {
+  if (top10Percent == null) {
+    return "⚪ Holder data unavailable";
+  }
 
+  if (top10Percent >= 80) {
+    return "🔴 Very high holder concentration";
+  }
+
+  if (top10Percent >= 50) {
+    return "🟠 High holder concentration";
+  }
+
+  return "🟢 Lower holder concentration";
+}
 async function loadNewTokenAlerts() {
   const box = document.getElementById("newTokenResults");
   box.textContent = "🔎 Checking newly discovered tokens...";
