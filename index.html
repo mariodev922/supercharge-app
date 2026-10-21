@@ -556,6 +556,7 @@ const market = tokenMarketData[t.tokenAddress];
 <div id="boostPreview" style="display:none;background:#063b69;padding:18px;margin-top:15px;border-radius:12px;border:1px solid #39bfff;">
   <strong style="color:#39bfff;">🚀 Sponsored Listing Preview</strong>
   <p id="boostPreviewToken" style="overflow-wrap:anywhere;"></p>
+ <p id="boostPreviewName" style="color:#ffffff;font-weight:bold;"></p>
   <p style="color:#a8bed4;">Sponsored • Preview only • Not published</p>
 </div>
 </div>
@@ -575,6 +576,25 @@ function checkBoostToken() {
   message.style.color = "#43e6a0";
 document.getElementById("boostPreviewToken").textContent = token;
 document.getElementById("boostPreview").style.display = "block";
+document.getElementById("boostPreviewName").textContent = "Loading token details...";
+
+fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(token))
+  .then(response => {
+    if (!response.ok) throw new Error("Token lookup failed");
+    return response.json();
+  })
+  .then(data => {
+    const pair = (data.pairs || []).find(p =>
+      p.chainId === "solana" && p.baseToken?.address === token
+    );
+    document.getElementById("boostPreviewName").textContent = pair
+      ? pair.baseToken.name + " (" + pair.baseToken.symbol + ")"
+      : "Token details unavailable";
+  })
+  .catch(() => {
+    document.getElementById("boostPreviewName").textContent =
+      "Token details unavailable";
+  });
 }
 </script>
 </body>
