@@ -447,7 +447,9 @@ if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token)) {
     ? (liquidity / marketCap) * 100
     : null;
     const warnings = [];
-
+if (liquidityRatio !== null && liquidityRatio < 1) {
+  warnings.push("Low liquidity relative to market cap (under 1%)");
+}
     if (liquidity == null) {
       warnings.push("Liquidity data unavailable");
     } else if (liquidity < 10000) {
