@@ -413,7 +413,10 @@ async function scanRisk() {
     result.textContent = "⚠️ Enter a Solana token address first.";
     return;
   }
-
+if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token)) {
+  result.textContent = "⚠️ Invalid Solana token address. Please check and try again.";
+  return;
+}
   result.textContent = "🔍 Checking market data...";
 
   try {
