@@ -551,7 +551,24 @@ const market = tokenMarketData[t.tokenAddress];
   <label for="boostToken">Solana Token Address</label>
   <input id="boostToken" type="text" placeholder="Paste your token address" style="display:block;width:100%;box-sizing:border-box;padding:14px;margin-top:10px;background:#061a33;color:white;border:1px solid #39bfff;border-radius:10px;">
   <p style="font-size:13px;color:#a8bed4;">Preview only — submissions and payments are not enabled.</p>
+<button type="button" onclick="checkBoostToken()" style="margin-top:15px;padding:14px 20px;background:#00bfff;color:#00152b;border:0;border-radius:10px;font-weight:bold;">🚀 Check Token Address</button>
+<p id="boostMessage"></p>
 </div>
 </section>
+<script>
+function checkBoostToken() {
+  const token = document.getElementById("boostToken").value.trim();
+  const message = document.getElementById("boostMessage");
+
+  if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token)) {
+    message.textContent = "❌ Please enter a valid Solana token address.";
+    message.style.color = "#ff8888";
+    return;
+  }
+
+  message.textContent = "✅ Address format looks valid. BOOST is still in preview mode.";
+  message.style.color = "#43e6a0";
+}
+</script>
 </body>
 </html>
