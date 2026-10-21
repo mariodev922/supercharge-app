@@ -591,13 +591,29 @@ fetch("https://api.dexscreener.com/latest/dex/tokens/" + encodeURIComponent(toke
     document.getElementById("boostPreviewName").textContent = pair
       ? pair.baseToken.name + " (" + pair.baseToken.symbol + ")"
       : "Token details unavailable";
-document.getElementById("boostPreviewMarket").textContent = pair ? "Market Cap: $" + (pair.marketCap ?? pair.fdv ?? "N/A") + " | Liquidity: $" + (pair.liquidity?.usd ?? "N/A") : "Market data unavailable";
+
+document.getElementById("boostPreviewMarket").textContent =
+  pair
+    ? "Market Cap: $" + formatMoney(pair.marketCap ?? pair.fdv) +
+      " | Liquidity: $" + formatMoney(pair.liquidity?.usd)
+    : "Market data unavailable";
+
   })
   .catch(() => {
     document.getElementById("boostPreviewName").textContent =
       "Token details unavailable";
   });
 }
+
+function formatMoney(value) {
+  if (value == null || !Number.isFinite(Number(value))) return "N/A";
+  const n = Number(value);
+  if (n >= 1e9) return (n / 1e9).toFixed(1) + "B";
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + "M";
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
+  return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
+}
+   
 </script>
 </body>
 </html>
