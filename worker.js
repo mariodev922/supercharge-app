@@ -7,7 +7,7 @@ export default {
   if (url.pathname === "/api/solana-test") {
   try {
     const response = await fetch(
-      "https://api.mainnet-beta.solana.com",
+     env.HELIUS_RPC_URL,
       {
         method: "POST",
         headers: {
