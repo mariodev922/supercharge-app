@@ -760,11 +760,13 @@ if (hasSupply) {
     0
   );
   const top10Percent = (top10Amount / totalSupply) * 100;
-
+const concentrationLabel = top10Percent >= 50 ? "Higher concentration" : top10Percent >= 20 ? "Moderate concentration" : "Lower concentration";
   const summary = document.createElement("p");
   summary.textContent = `Top 10 token accounts: ${top10Percent.toFixed(2)}% of total supply`;
   results.appendChild(summary);
-
+const indicator = document.createElement("p");
+indicator.textContent = `Holder concentration: ${concentrationLabel} (indicative only)`;
+results.appendChild(indicator);
 const bar = document.createElement("div");
 bar.style.background = "#294763";
 bar.style.borderRadius = "10px";
