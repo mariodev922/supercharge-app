@@ -763,6 +763,22 @@ if (hasSupply) {
   const summary = document.createElement("p");
   summary.textContent = `Top 10 token accounts: ${top10Percent.toFixed(2)}% of total supply`;
   results.appendChild(summary);
+
+const bar = document.createElement("div");
+bar.style.background = "#294763";
+bar.style.borderRadius = "10px";
+bar.style.height = "16px";
+bar.style.overflow = "hidden";
+
+const fill = document.createElement("div");
+fill.style.width = `${Math.min(100, Math.max(0, top10Percent))}%`;
+fill.style.height = "100%";
+fill.style.background = "#38bdf8";
+fill.style.borderRadius = "10px";
+
+bar.appendChild(fill);
+results.appendChild(bar);
+ 
 }
 
     holders.forEach((holder, index) => {
