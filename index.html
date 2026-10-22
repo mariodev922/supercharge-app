@@ -778,7 +778,9 @@ fill.style.borderRadius = "10px";
 
 bar.appendChild(fill);
 results.appendChild(bar);
- 
+const explanation = document.createElement("p");
+explanation.textContent = "This shows how much of the total token supply is held in the 10 largest token accounts. These accounts may include exchanges or liquidity pools and do not necessarily represent 10 separate owners. Concentration alone cannot determine whether a token is safe.";
+results.appendChild(explanation); 
 }
 
     holders.forEach((holder, index) => {
