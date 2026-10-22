@@ -37,8 +37,55 @@ export default {
     }, { status: 502 });
   }
 }
-    if (url.pathname !== "/api/health") {
+    if (
+  url.pathname !== "/api/health" &&
+  url.pathname !== "/api/token-holders"
+) {
       return env.ASSETS.fetch(request);
+    }
+
+    if (url.pathname === "/api/token-holders") {
+      const mint = url.searchParams.get("mint");
+
+      if (!mint || !/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(mint)) {
+        return Response.json(
+          { error: "Enter a valid Solana token mint address." },
+          { status: 400 }
+        );
+      }
+
+      try {
+        const response = await fetch(env.HELIUS_RPC_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method: "getTokenLargestAccounts",
+            params: [mint]
+          }),
+          signal: AbortSignal.timeout(8000)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+          return Response.json(
+            { error: "Unable to retrieve token holders." },
+            { status: 502 }
+          );
+        }
+
+        return Response.json({
+          mint,
+          holders: data.result?.value ?? []
+        });
+      } catch (error) {
+        return Response.json(
+          { error: "Token holder lookup failed." },
+          { status: 502 }
+        );
+      }
     }
 
     // Test that our backend is working.
