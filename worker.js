@@ -87,8 +87,39 @@ const supplyResponse = await fetch(env.HELIUS_RPC_URL, {
           );
         }
 
+     
+const mintInfoResponse = await fetch(env.HELIUS_RPC_URL, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    jsonrpc: "2.0",
+    id: 3,
+    method: "getAccountInfo",
+    params: [mint, { encoding: "jsonParsed" }]
+  }),
+  signal: AbortSignal.timeout(8000)
+});
+
+const mintInfoData = mintInfoResponse.ok
+  ? await mintInfoResponse.json()
+  : null;
+
+const mintAccount = mintInfoData?.result?.value;
+const parsedMint = mintAccount?.data?.parsed;
+
+const mintAuthority =
+  !mintInfoData?.error &&
+  parsedMint?.type === "mint" &&
+  (parsedMint.info?.mintAuthority === null ||
+   typeof parsedMint.info?.mintAuthority === "string")
+    ? parsedMint.info.mintAuthority
+    : undefined;
+
         return Response.json({
           mint,
+          
+mintAuthority: mintAuthority === undefined ? "unknown" : mintAuthority,
+
           holders: data.result?.value ?? [],
           totalSupply: supplyResponse.ok && !supplyData.error
   ? supplyData.result?.value ?? null
