@@ -703,7 +703,18 @@ function formatMoney(value) {
   if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
   return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
 }
-   
+async function loadTokenHolders(mint) {
+  const response = await fetch(
+    "/api/token-holders?mint=" + encodeURIComponent(mint)
+  );
+
+  if (!response.ok) {
+    throw new Error("Unable to load token holders");
+  }
+
+  const data = await response.json();
+  return data.holders || [];
+}   
 </script>
 </body>
 </html>
