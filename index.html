@@ -94,6 +94,14 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
   <div id="chartMessage" style="color:#a6c4e4;padding:12px 0;">
   
 </div>
+<section style="margin-top:25px;background:#102747;padding:20px;border-radius:16px;">
+  <h2 style="color:#39bfff;">🔍 Token Holder Analysis</h2>
+  <p>Explore the largest token accounts on Solana.</p>
+  <input id="holderMint" placeholder="Paste Solana token address">
+  <button onclick="showTokenHolders()">Analyse Holders</button>
+  <div id="holderResults"></div>
+  <small>Token accounts are not necessarily unique wallets. This is not a safety guarantee.</small>
+</section>
 </section></main>
 <footer>SUPERCHARGE • Independent crypto research • Not financial advice</footer>
 <script>
@@ -715,6 +723,40 @@ async function loadTokenHolders(mint) {
   const data = await response.json();
   return data.holders || [];
 }   
+async function showTokenHolders() {
+  const mint = document.getElementById("holderMint").value.trim();
+  const results = document.getElementById("holderResults");
+
+  results.textContent = "Loading token accounts...";
+
+  if (!mint) {
+    results.textContent = "Please enter a Solana token address.";
+    return;
+  }
+
+  try {
+    const holders = await loadTokenHolders(mint);
+    results.replaceChildren();
+
+    if (holders.length === 0) {
+      results.textContent = "No token accounts found.";
+      return;
+    }
+
+    const heading = document.createElement("p");
+    heading.textContent = `Showing ${holders.length} largest token accounts:`;
+    results.appendChild(heading);
+
+    holders.forEach((holder, index) => {
+      const item = document.createElement("p");
+      item.style.overflowWrap = "anywhere";
+      item.textContent = `${index + 1}. ${holder.address} — ${holder.uiAmountString ?? "N/A"} tokens`;
+      results.appendChild(item);
+    });
+  } catch (error) {
+    results.textContent = "Unable to retrieve token accounts. Please check the address.";
+  }
+}
 </script>
 </body>
 </html>
