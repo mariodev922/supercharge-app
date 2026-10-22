@@ -753,6 +753,18 @@ const hasSupply = Number.isFinite(totalSupply) && totalSupply > 0;
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
 
+if (hasSupply) {
+  const top10Amount = holders.slice(0, 10).reduce(
+    (sum, holder) => sum + Number(holder.uiAmountString),
+    0
+  );
+  const top10Percent = (top10Amount / totalSupply) * 100;
+
+  const summary = document.createElement("p");
+  summary.textContent = `Top 10 token accounts: ${top10Percent.toFixed(2)}% of total supply`;
+  results.appendChild(summary);
+}
+
     holders.forEach((holder, index) => {
      const percentage = hasSupply
   ? (Number(holder.uiAmountString) / totalSupply) * 100
