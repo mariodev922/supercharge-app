@@ -800,6 +800,13 @@ results.appendChild(explanation);
       item.style.overflowWrap = "anywhere";
       item.textContent = `${index + 1}. ${holder.address.slice(0, 6)}...${holder.address.slice(-4)} — ${Number(holder.uiAmountString).toLocaleString("en-GB", { maximumFractionDigits: 2 })} tokens${percentage !== null ? ` (${percentage.toFixed(2)}% of supply)` : ""}`;
       results.appendChild(item);
+     
+const accountType = document.createElement("p");
+accountType.textContent = "Account type: Unknown (not verified)";
+accountType.style.fontSize = "13px";
+accountType.style.color = "#94a3b8";
+results.appendChild(accountType);
+
      const link = document.createElement("a");
 link.href = `https://solscan.io/account/${holder.address}`;
 link.textContent = "🔗 View on Solscan";
