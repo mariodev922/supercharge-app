@@ -829,6 +829,17 @@ results.appendChild(liquidityStatus);
    const liquidityNote = document.createElement("p");
 liquidityNote.textContent = "⚠️ Liquidity alone does not mean a token is safe. Liquidity can change or be withdrawn. This check does not verify whether liquidity is locked or burned.";
 results.appendChild(liquidityNote);
+   if (liquidityData?.url) {
+  const poolLink = document.createElement("a");
+  poolLink.href = liquidityData.url;
+  poolLink.textContent = "🔗 View liquidity pool on DexScreener";
+  poolLink.target = "_blank";
+  poolLink.rel = "noopener noreferrer";
+
+  const poolRow = document.createElement("p");
+  poolRow.appendChild(poolLink);
+  results.appendChild(poolRow);
+}
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
