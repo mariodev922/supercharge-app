@@ -712,7 +712,40 @@ function formatMoney(value) {
   if (n >= 1e3) return (n / 1e3).toFixed(1) + "K";
   return n.toLocaleString("en-US", { maximumFractionDigits: 2 });
 }
-async function loadTokenHolders(mint) {
+async function loadTokenLiquidity(mint) {
+  const response = await fetch(
+    "https://api.dexscreener.com/token-pairs/v1/solana/" +
+    encodeURIComponent(mint)
+  );
+
+  if (!response.ok) {
+    throw new Error("Liquidity data unavailable");
+  }
+
+  const pairs = await response.json();
+
+  const validPairs = Array.isArray(pairs)
+    ? pairs.filter(pair =>
+        pair.chainId === "solana" &&
+        Number.isFinite(Number(pair.liquidity?.usd)) &&
+        Number(pair.liquidity?.usd) >= 0
+      )
+    : [];
+
+  if (validPairs.length === 0) {
+    return null;
+  }
+
+  validPairs.sort(
+    (a, b) =>
+      Number(b.liquidity.usd) -
+      Number(a.liquidity.usd)
+  );
+
+  return validPairs[0];
+}
+ 
+ async function loadTokenHolders(mint) {
   const response = await fetch(
     "/api/token-holders?mint=" + encodeURIComponent(mint)
   );
@@ -744,7 +777,7 @@ async function showTokenHolders() {
   try {
  const tokenData = await loadTokenHolders(mint);
 const holders = tokenData.holders;
-  
+  const liquidityData = await loadTokenLiquidity(mint).catch(() => null);
 const mintAuthority = tokenData.mintAuthority;
  const freezeAuthority = tokenData.freezeAuthority;
 const totalSupply = Number(tokenData.totalSupply?.uiAmountString);
@@ -778,6 +811,21 @@ freezeStatus.textContent =
     : "❔ Freeze authority: Unknown";
 
 results.appendChild(freezeStatus);
+   const liquidityStatus = document.createElement("p");
+
+if (liquidityData && liquidityData.liquidity) {
+  const liquidityUSD = Number(liquidityData.liquidity.usd);
+
+  liquidityStatus.textContent = Number.isFinite(liquidityUSD)
+    ? "💧 Liquidity: $" + liquidityUSD.toLocaleString("en-US", {
+        maximumFractionDigits: 2
+      }) + " USD (reported by DexScreener)"
+    : "💧 Liquidity: Unavailable";
+} else {
+  liquidityStatus.textContent = "💧 Liquidity: Unavailable";
+}
+
+results.appendChild(liquidityStatus);
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
