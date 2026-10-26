@@ -826,6 +826,9 @@ if (liquidityData && liquidityData.liquidity) {
 }
 
 results.appendChild(liquidityStatus);
+   const liquidityNote = document.createElement("p");
+liquidityNote.textContent = "⚠️ Liquidity alone does not mean a token is safe. Liquidity can change or be withdrawn. This check does not verify whether liquidity is locked or burned.";
+results.appendChild(liquidityNote);
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
