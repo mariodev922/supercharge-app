@@ -807,6 +807,19 @@ accountType.style.fontSize = "13px";
 accountType.style.color = "#94a3b8";
 results.appendChild(accountType);
 
+if (holder.ownerAddress) {
+  const ownerLink = document.createElement("a");
+  ownerLink.href =
+    `https://solscan.io/account/${holder.ownerAddress}`;
+  ownerLink.textContent = "🔍 View wallet owner on Solscan";
+  ownerLink.target = "_blank";
+  ownerLink.rel = "noopener noreferrer";
+  ownerLink.style.display = "block";
+  ownerLink.style.marginBottom = "8px";
+  ownerLink.style.color = "#38bdf8";
+  results.appendChild(ownerLink);
+}
+
      const link = document.createElement("a");
 link.href = `https://solscan.io/account/${holder.address}`;
 link.textContent = "🔗 View on Solscan";
