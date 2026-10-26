@@ -844,6 +844,18 @@ poolLink.style.color = "#00bfff";
   poolRow.appendChild(poolLink);
   results.appendChild(poolRow);
 }
+   const marketCapRow = document.createElement("p");
+
+const marketCap = Number(liquidityData?.marketCap);
+
+marketCapRow.textContent =
+  Number.isFinite(marketCap) && marketCap > 0
+    ? "📊 Market Cap: $" +
+      marketCap.toLocaleString("en-US") +
+      " USD (DexScreener)"
+    : "📊 Market Cap: Unavailable";
+
+results.appendChild(marketCapRow);
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
