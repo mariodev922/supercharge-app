@@ -754,6 +754,10 @@ const hasSupply = Number.isFinite(totalSupply) && totalSupply > 0;
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
 
+const accountNote = document.createElement("p");
+accountNote.textContent = "Account types are not yet verified. Large token accounts may belong to exchanges, liquidity pools, or individual holders.";
+results.appendChild(accountNote);
+
 if (hasSupply) {
   const top10Amount = holders.slice(0, 10).reduce(
     (sum, holder) => sum + Number(holder.uiAmountString),
