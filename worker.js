@@ -151,7 +151,7 @@ holders: tokenAccounts.map((holder, index) => ({
   
 ...holder,
 ownerAddress: accountOwners[index]?.data?.parsed?.info?.owner ?? null,
-accountType: "unknown",
+accountType: "unclassified",
 accountTypeVerified: false
 
   
