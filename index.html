@@ -723,8 +723,11 @@ async function loadTokenHolders(mint) {
 
   const data = await response.json();
   return {
-  holders: data.holders || [],
-  totalSupply: data.totalSupply || null
+  
+holders: data.holders || [],
+totalSupply: data.totalSupply || null,
+mintAuthority: data.mintAuthority
+
 };
 }   
 async function showTokenHolders() {
@@ -741,6 +744,9 @@ async function showTokenHolders() {
   try {
  const tokenData = await loadTokenHolders(mint);
 const holders = tokenData.holders;
+  
+const mintAuthority = tokenData.mintAuthority;
+ 
 const totalSupply = Number(tokenData.totalSupply?.uiAmountString);
 const hasSupply = Number.isFinite(totalSupply) && totalSupply > 0;
     results.replaceChildren();
@@ -749,6 +755,17 @@ const hasSupply = Number.isFinite(totalSupply) && totalSupply > 0;
       results.textContent = "No token accounts found.";
       return;
     }
+
+const mintStatus = document.createElement("p");
+
+mintStatus.textContent =
+  mintAuthority === null
+    ? "🛡️ Mint authority: Revoked"
+    : typeof mintAuthority === "string" && mintAuthority.length > 0 && mintAuthority !== "unknown"
+    ? "⚠️ Mint authority: Active"
+    : "❔ Mint authority: Unknown";
+
+results.appendChild(mintStatus);
 
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
