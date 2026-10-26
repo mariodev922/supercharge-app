@@ -115,17 +115,42 @@ const mintAuthority =
     ? parsedMint.info.mintAuthority
     : undefined;
 
+
+  const tokenAccounts = data.result?.value ?? [];
+
+const ownerResponse = await fetch(env.HELIUS_RPC_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    jsonrpc: "2.0",
+    id: 4,
+    method: "getMultipleAccounts",
+    params: [
+      tokenAccounts.map(account => account.address),
+      { encoding: "jsonParsed" }
+    ]
+  }),
+  signal: AbortSignal.timeout(8000)
+});
+
+const ownerData = ownerResponse.ok
+  ? await ownerResponse.json()
+  : null;
+
+const accountOwners = ownerData?.result?.value ?? [];      
         return Response.json({
           mint,
           
 mintAuthority: mintAuthority === undefined ? "unknown" : mintAuthority,
 
           
-holders: (data.result?.value ?? []).map(holder => ({
+holders: tokenAccounts.map((holder, index) => ({
  
   
 ...holder,
-ownerAddress: null,
+ownerAddress: accountOwners[index]?.data?.parsed?.info?.owner ?? null,
 accountType: "unknown",
 accountTypeVerified: false
 
