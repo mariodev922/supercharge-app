@@ -868,6 +868,20 @@ fdvRow.textContent =
     : "💰 FDV: Unavailable";
 
 results.appendChild(fdvRow);
+   const volumeRow = document.createElement("p");
+
+const volume24h = Number(liquidityData?.volume?.h24);
+
+volumeRow.textContent =
+  liquidityData?.volume?.h24 != null &&
+  Number.isFinite(volume24h) &&
+  volume24h >= 0
+    ? "📊 24h Volume: $" +
+      volume24h.toLocaleString("en-US") +
+      " USD (DexScreener)"
+    : "📊 24h Volume: Unavailable";
+
+results.appendChild(volumeRow);
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
