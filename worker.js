@@ -116,6 +116,14 @@ const mintAuthority =
     : undefined;
 
 
+const freezeAuthority =
+  !mintInfoData?.error &&
+  parsedMint?.type === "mint" &&
+  (parsedMint.info?.freezeAuthority === null ||
+    typeof parsedMint.info?.freezeAuthority === "string")
+    ? parsedMint.info.freezeAuthority
+    : "unknown";
+
   const tokenAccounts = data.result?.value ?? [];
 
 const ownerResponse = await fetch(env.HELIUS_RPC_URL, {
@@ -145,7 +153,7 @@ const accountOwners = ownerData?.result?.value ?? [];
           
 mintAuthority: mintAuthority === undefined ? "unknown" : mintAuthority,
 
-          
+ freezeAuthority: freezeAuthority,         
 holders: tokenAccounts.map((holder, index) => ({
  
   
