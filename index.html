@@ -742,7 +742,11 @@ async function loadTokenLiquidity(mint) {
       Number(a.liquidity.usd)
   );
 
-  return validPairs[0];
+  const selectedPair = validPairs[0];
+selectedPair.superchargeMarketCap =
+  Number(selectedPair.marketCap ?? selectedPair.fdv ?? 0);
+
+return selectedPair;
 }
  
  async function loadTokenHolders(mint) {
