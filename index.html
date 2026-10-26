@@ -856,6 +856,18 @@ marketCapRow.textContent =
     : "📊 Market Cap: Unavailable";
 
 results.appendChild(marketCapRow);
+   const fdvRow = document.createElement("p");
+
+const fdv = Number(liquidityData?.fdv);
+
+fdvRow.textContent =
+  Number.isFinite(fdv) && fdv > 0
+    ? "💰 FDV: $" +
+      fdv.toLocaleString("en-US") +
+      " USD (DexScreener)"
+    : "💰 FDV: Unavailable";
+
+results.appendChild(fdvRow);
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
