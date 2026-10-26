@@ -882,6 +882,30 @@ volumeRow.textContent =
     : "📊 24h Volume: Unavailable";
 
 results.appendChild(volumeRow);
+   const priceChangeRow = document.createElement("p");
+
+const priceChange24h =
+  Number(liquidityData?.priceChange?.h24);
+
+priceChangeRow.textContent =
+  liquidityData?.priceChange?.h24 != null &&
+  Number.isFinite(priceChange24h)
+    ? "24h Price Change: " +
+      (priceChange24h > 0 ? "+" : "") +
+      priceChange24h.toFixed(2) + "%"
+    : "24h Price Change: Unavailable";
+
+priceChangeRow.style.color =
+  !Number.isFinite(priceChange24h) ||
+  liquidityData?.priceChange?.h24 == null
+    ? "#b8c8d8"
+    : priceChange24h > 0
+    ? "#22c55e"
+    : priceChange24h < 0
+    ? "#ef4444"
+    : "#b8c8d8";
+
+results.appendChild(priceChangeRow);
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
