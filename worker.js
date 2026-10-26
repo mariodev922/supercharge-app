@@ -120,7 +120,13 @@ const mintAuthority =
           
 mintAuthority: mintAuthority === undefined ? "unknown" : mintAuthority,
 
-          holders: data.result?.value ?? [],
+          
+holders: (data.result?.value ?? []).map(holder => ({
+  ...holder,
+  accountType: "unknown",
+  accountTypeVerified: false
+})),
+
           totalSupply: supplyResponse.ok && !supplyData.error
   ? supplyData.result?.value ?? null
   : null
