@@ -746,7 +746,7 @@ async function showTokenHolders() {
 const holders = tokenData.holders;
   
 const mintAuthority = tokenData.mintAuthority;
- 
+ const freezeAuthority = tokenData.freezeAuthority;
 const totalSupply = Number(tokenData.totalSupply?.uiAmountString);
 const hasSupply = Number.isFinite(totalSupply) && totalSupply > 0;
     results.replaceChildren();
@@ -766,7 +766,18 @@ mintStatus.textContent =
     : "❔ Mint authority: Unknown";
 
 results.appendChild(mintStatus);
+const freezeStatus = document.createElement("p");
 
+freezeStatus.textContent =
+  freezeAuthority === null
+    ? "🛡️ Freeze authority: Revoked"
+    : typeof freezeAuthority === "string" &&
+      freezeAuthority.length > 0 &&
+      freezeAuthority !== "unknown"
+    ? "⚠️ Freeze authority: Active"
+    : "❔ Freeze authority: Unknown";
+
+results.appendChild(freezeStatus);
     const heading = document.createElement("p");
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
