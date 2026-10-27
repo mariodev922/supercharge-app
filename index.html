@@ -916,7 +916,11 @@ priceChangeRow.style.color =
     : "#b8c8d8";
 
 results.appendChild(priceChangeRow);
-
+const marketNote = document.createElement("p");
+marketNote.textContent = "What do these figures mean? Market cap estimates the value of circulating tokens. FDV estimates the value if the full token supply were valued at the current price. 24h volume shows reported trading activity, while 24h price change shows recent price movement. These figures can change quickly and do not guarantee a token is safe.";
+marketNote.style.fontSize = "12px";
+marketNote.style.color = "#94a3b8";
+results.appendChild(marketNote);
   const holderHeading = document.createElement("h3");
 holderHeading.textContent = "📊 Holder Distribution & Concentration";
 holderHeading.style.color = "#38bdf8";
