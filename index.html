@@ -911,7 +911,14 @@ priceChangeRow.style.color =
     : "#b8c8d8";
 
 results.appendChild(priceChangeRow);
-    const heading = document.createElement("p");
+
+  const holderHeading = document.createElement("h3");
+holderHeading.textContent = "📊 Holder Distribution & Concentration";
+holderHeading.style.color = "#38bdf8";
+holderHeading.style.marginTop = "24px";
+holderHeading.style.marginBottom = "12px";
+results.appendChild(holderHeading); 
+      const heading = document.createElement("p"); 
     heading.textContent = `Showing ${holders.length} largest token accounts:`;
     results.appendChild(heading);
 
