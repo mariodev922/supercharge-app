@@ -820,6 +820,11 @@ freezeStatus.textContent =
     : "❔ Freeze authority: Unknown";
 
 results.appendChild(freezeStatus);
+   const authorityNote = document.createElement("p");
+authorityNote.textContent = "What does this mean? Mint authority controls whether more tokens can be created. Freeze authority can allow token accounts to be frozen. Revoked means that authority has been removed. These checks alone do not guarantee a token is safe.";
+authorityNote.style.fontSize = "12px";
+authorityNote.style.color = "#94a3b8";
+results.appendChild(authorityNote);
    const liquidityStatus = document.createElement("p");
 
 if (liquidityData && liquidityData.liquidity) {
