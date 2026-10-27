@@ -962,7 +962,11 @@ accountType.textContent = `Account type: ${holder.accountType === "unclassified"
 accountType.style.fontSize = "13px";
 accountType.style.color = "#94a3b8";
 results.appendChild(accountType);
-
+const accountTypeNote = document.createElement("p");
+accountTypeNote.textContent = "Account ownership has not been verified. A token account may be controlled by an individual, exchange, or liquidity pool.";
+accountTypeNote.style.fontSize = "12px";
+accountTypeNote.style.color = "#94a3b8";
+results.appendChild(accountTypeNote);
 if (holder.ownerAddress) {
   const ownerLink = document.createElement("a");
   ownerLink.href =
