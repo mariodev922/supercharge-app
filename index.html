@@ -963,6 +963,7 @@ accountType.textContent = holder.accountLabel && holder.accountLabelSource
   : `Account type: ${holder.accountType === "unclassified" ? "Unclassified (not verified)" : "Unknown (not verified)"}`;
 accountType.style.fontSize = "13px";
 accountType.style.color = "#94a3b8";
+    accountType.style.fontWeight = holder.accountLabel ? "600" : "400"; 
 results.appendChild(accountType);
 const accountTypeNote = document.createElement("p");
 accountTypeNote.textContent =
