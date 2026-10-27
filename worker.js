@@ -159,10 +159,22 @@ holders: tokenAccounts.map((holder, index) => ({
   
 ...holder,
 ownerAddress: accountOwners[index]?.data?.parsed?.info?.owner ?? null,
-accountType: "unclassified",
+accountType:
+  accountOwners[index]?.data?.parsed?.info?.owner ===
+  "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+    ? "exchange"
+    : "unclassified",
 accountTypeVerified: false,
- accountLabelSource: null 
-
+ accountLabelSource:
+  accountOwners[index]?.data?.parsed?.info?.owner ===
+  "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+    ? "Solscan (externally labelled)"
+   : null,
+accountLabel:
+  accountOwners[index]?.data?.parsed?.info?.owner ===
+  "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM"
+    ? "Binance 3"
+    : null
   
 })),
 
