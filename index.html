@@ -958,7 +958,9 @@ results.appendChild(explanation);
       results.appendChild(item);
      
 const accountType = document.createElement("p");
-accountType.textContent = `Account type: ${holder.accountType === "unclassified" ? "Unclassified (not verified)" : "Unknown (not verified)"}`;
+accountType.textContent = holder.accountLabel && holder.accountLabelSource
+  ? `Account type: ${holder.accountLabel} (${holder.accountLabelSource}; not independently verified)`
+  : `Account type: ${holder.accountType === "unclassified" ? "Unclassified (not verified)" : "Unknown (not verified)"}`;
 accountType.style.fontSize = "13px";
 accountType.style.color = "#94a3b8";
 results.appendChild(accountType);
