@@ -965,7 +965,10 @@ accountType.style.fontSize = "13px";
 accountType.style.color = "#94a3b8";
 results.appendChild(accountType);
 const accountTypeNote = document.createElement("p");
-accountTypeNote.textContent = "Account ownership has not been verified. A token account may be controlled by an individual, exchange, or liquidity pool.";
+accountTypeNote.textContent =
+  holder.accountType === "exchange" && holder.accountLabel
+    ? "This wallet is labelled as exchange-associated by an external source. Exchanges may hold tokens for many customers, so this balance does not necessarily belong to one person. The label is not independently verified and does not guarantee safety."
+    : "Account ownership has not been verified. A token account may be controlled by an individual, exchange, or liquidity pool.";
 accountTypeNote.style.fontSize = "12px";
 accountTypeNote.style.color = "#94a3b8";
 results.appendChild(accountTypeNote);
