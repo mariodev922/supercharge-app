@@ -792,7 +792,12 @@ const hasSupply = Number.isFinite(totalSupply) && totalSupply > 0;
       results.textContent = "No token accounts found.";
       return;
     }
-
+const overviewHeading = document.createElement("h3");
+overviewHeading.textContent = "🛡️ Token Safety & Market Overview";
+overviewHeading.style.color = "#38bdf8";
+overviewHeading.style.marginTop = "16px";
+overviewHeading.style.marginBottom = "12px";
+results.appendChild(overviewHeading);
 const mintStatus = document.createElement("p");
 
 mintStatus.textContent =
