@@ -1029,6 +1029,32 @@ walletMap.style.borderRadius = "12px";
 walletMap.style.marginBottom = "20px";
 results.appendChild(walletMap); 
     holders.forEach((holder, index) => {
+      const bubble = document.createElement("div");
+const share = hasSupply
+  ? (Number(holder.uiAmountString) / totalSupply) * 100
+  : 0;
+
+const bubbleSize = Math.min(110, Math.max(42, 42 + share * 7));
+
+bubble.style.width = `${bubbleSize}px`;
+bubble.style.height = `${bubbleSize}px`;
+bubble.style.borderRadius = "50%";
+bubble.style.background = "#00bfff";
+bubble.style.display = "flex";
+bubble.style.alignItems = "center";
+bubble.style.justifyContent = "center";
+bubble.style.color = "#071327";
+bubble.style.fontWeight = "bold";
+bubble.style.fontSize = "12px";
+bubble.style.textAlign = "center";
+bubble.style.flexShrink = "0";
+
+bubble.textContent = hasSupply && Number.isFinite(share)
+  ? `${share.toFixed(1)}%`
+  : "N/A";
+
+bubble.title = `Token account: ${holder.address}`;
+walletMap.appendChild(bubble);
      const percentage = hasSupply
   ? (Number(holder.uiAmountString) / totalSupply) * 100
   : null;
