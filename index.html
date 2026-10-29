@@ -1013,6 +1013,11 @@ barNote.style.fontSize = "12px";
 barNote.style.color = "#94a3b8";
 barNote.style.marginBottom = "16px";
 results.appendChild(barNote);
+  const walletMapHeading = document.createElement("h3");
+walletMapHeading.textContent = "🫧 SUPERCHARGE Wallet Map";
+walletMapHeading.style.color = "#55c9ff";
+walletMapHeading.style.marginTop = "24px";
+results.appendChild(walletMapHeading);  
     holders.forEach((holder, index) => {
      const percentage = hasSupply
   ? (Number(holder.uiAmountString) / totalSupply) * 100
