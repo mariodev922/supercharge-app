@@ -1017,7 +1017,17 @@ results.appendChild(barNote);
 walletMapHeading.textContent = "🫧 SUPERCHARGE Wallet Map";
 walletMapHeading.style.color = "#55c9ff";
 walletMapHeading.style.marginTop = "24px";
-results.appendChild(walletMapHeading);  
+results.appendChild(walletMapHeading); 
+   const walletMap = document.createElement("div");
+walletMap.style.display = "flex";
+walletMap.style.flexWrap = "wrap";
+walletMap.style.gap = "12px";
+walletMap.style.justifyContent = "center";
+walletMap.style.padding = "20px";
+walletMap.style.background = "#0c2040";
+walletMap.style.borderRadius = "12px";
+walletMap.style.marginBottom = "20px";
+results.appendChild(walletMap); 
     holders.forEach((holder, index) => {
      const percentage = hasSupply
   ? (Number(holder.uiAmountString) / totalSupply) * 100
