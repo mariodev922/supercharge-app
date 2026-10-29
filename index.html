@@ -1007,7 +1007,12 @@ results.appendChild(explanation);
 
 }  
 
-
+const barNote = document.createElement("p");
+barNote.textContent = "📊 How to read these bars: Each blue bar shows the percentage of total token supply held by that token account. Longer bars mean larger holdings. Exchange and liquidity-pool accounts may represent multiple users. These bars do not prove who owns the tokens or whether a token is safe.";
+barNote.style.fontSize = "12px";
+barNote.style.color = "#94a3b8";
+barNote.style.marginBottom = "16px";
+results.appendChild(barNote);
     holders.forEach((holder, index) => {
      const percentage = hasSupply
   ? (Number(holder.uiAmountString) / totalSupply) * 100
