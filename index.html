@@ -1034,7 +1034,7 @@ const share = hasSupply
   ? (Number(holder.uiAmountString) / totalSupply) * 100
   : 0;
 
-const bubbleSize = Math.min(110, Math.max(42, 42 + share * 7));
+const bubbleSize = Math.min(110, Math.max(42, 42 + (Number.isFinite(share) ? share : 0) * 7));
 
 bubble.style.width = `${bubbleSize}px`;
 bubble.style.height = `${bubbleSize}px`;
