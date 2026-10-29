@@ -1053,7 +1053,14 @@ bubble.style.flexShrink = "0";
 bubble.textContent = hasSupply && Number.isFinite(share)
   ? `${share.toFixed(1)}%`
   : "N/A";
-
+bubble.style.cursor = "pointer";
+bubble.onclick = () => {
+  window.open(
+    `https://solscan.io/account/${holder.address}`,
+    "_blank",
+    "noopener,noreferrer"
+  );
+};
 bubble.title = `Token account: ${holder.address}`;
 walletMap.appendChild(bubble);
      const percentage = hasSupply
