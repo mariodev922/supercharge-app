@@ -1018,7 +1018,17 @@ walletMapHeading.textContent = "🫧 SUPERCHARGE Wallet Map";
 walletMapHeading.style.color = "#55c9ff";
 walletMapHeading.style.marginTop = "24px";
 results.appendChild(walletMapHeading); 
-   const walletMap = document.createElement("div");
+
+ 
+const walletMapInstruction = document.createElement("p");
+walletMapInstruction.textContent =
+  "👆 Tap any blue bubble to explore token account details.";
+walletMapInstruction.style.fontSize = "13px";
+walletMapInstruction.style.color = "#94a3b8";
+walletMapInstruction.style.marginBottom = "12px";
+results.appendChild(walletMapInstruction);
+   
+    const walletMap = document.createElement("div");
 walletMap.style.display = "flex";
 walletMap.style.flexWrap = "wrap";
 walletMap.style.gap = "12px";
