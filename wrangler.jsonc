@@ -4,6 +4,7 @@
   "name": "supercharge-app",
   "compatibility_date": "2026-10-21",
   "assets": {
-    "directory": "."
+   "directory": ".",
+"binding": "ASSETS"
   }
 }
