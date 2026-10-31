@@ -1056,10 +1056,46 @@ bubble.textContent = hasSupply && Number.isFinite(share)
 
 bubble.style.cursor = "pointer";
 
+
 bubble.onclick = () => {
-  window.location.href =
-    `https://solscan.io/account/${holder.address}`;
+  const details = document.createElement("div");
+
+  details.style.background = "#123456";
+  details.style.padding = "16px";
+  details.style.borderRadius = "12px";
+  details.style.marginTop = "12px";
+  details.style.overflowWrap = "anywhere";
+
+  const percentageText = hasSupply && Number.isFinite(share)
+    ? `${share.toFixed(2)}% of supply`
+    : "Percentage unavailable";
+
+  const labelText = holder.accountLabel
+    ? `${holder.accountLabel} (external label, not independently verified)`
+    : "Unclassified (not verified)";
+
+  const info = document.createElement("p");
+  info.textContent =
+    `Holding: ${percentageText} | Account: ${holder.address} | Label: ${labelText}`;
+
+  const link = document.createElement("a");
+  link.href = `https://solscan.io/account/${holder.address}`;
+  link.textContent = "🔎 View on Solscan";
+  link.style.color = "#38bdf8";
+  link.style.display = "block";
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+
+  details.appendChild(info);
+  details.appendChild(link);
+
+  const previous = document.getElementById("wallet-details");
+  if (previous) previous.remove();
+
+  details.id = "wallet-details";
+  walletMap.insertAdjacentElement("afterend", details);
 };
+
 
 bubble.title = `Token account: ${holder.address}`;
 walletMap.appendChild(bubble);
