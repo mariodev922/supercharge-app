@@ -147,10 +147,27 @@ const ownerData = ownerResponse.ok
   ? await ownerResponse.json()
   : null;
 
-const accountOwners = ownerData?.result?.value ?? [];      
+const accountOwners = ownerData?.result?.value ?? []; 
+
+const ownerCounts = {};
+
+accountOwners.forEach((account) => {
+  const owner = account?.data?.parsed?.info?.owner;
+  if (owner) {
+    ownerCounts[owner] = (ownerCounts[owner] || 0) + 1;
+  }
+});
+
+const sharedOwners = Object.entries(ownerCounts)
+  .filter(([owner, count]) => count > 1)
+  .map(([owner, count]) => ({
+    owner,
+    tokenAccountCount: count
+  }));
+        
         return Response.json({
           mint,
-          
+ sharedOwners,         
 mintAuthority: mintAuthority === undefined ? "unknown" : mintAuthority,
 
  freezeAuthority: freezeAuthority,         
