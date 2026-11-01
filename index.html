@@ -658,7 +658,12 @@ const market = tokenMarketData[t.tokenAddress];
   const info = document.createElement("small");
   info.textContent =
     "Market Cap: $" + (market.marketCap ?? "N/A") +
-    " | Liquidity: $" + (market.liquidity?.usd ?? "N/A") +
+   
+" | Liquidity: " +
+(market.liquidity?.usd == null
+  ? "Not available"
+  : "$" + market.liquidity.usd) +
+
     " | 24h Volume: $" + (market.volume?.h24 ?? "N/A");
  
   link.style.color = "#39bfff";
