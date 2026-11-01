@@ -666,6 +666,21 @@ const market = tokenMarketData[t.tokenAddress];
  if (market) {
   info.style.display = "block";
   item.appendChild(info);
+   
+const liquidity = Number(market.liquidity?.usd);
+
+if (Number.isFinite(liquidity) && liquidity < 5000) {
+  const warning = document.createElement("small");
+  warning.textContent =
+    "⚠️ Very low liquidity ($" +
+    liquidity.toLocaleString("en-US") +
+    "). Trading may be difficult and prices may move sharply.";
+  warning.style.display = "block";
+  warning.style.color = "#ffcc66";
+  warning.style.marginTop = "6px";
+  item.appendChild(warning);
+}
+
 }
 }
   box.appendChild(item);
