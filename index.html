@@ -630,7 +630,12 @@ tokenMarketData[pair.baseToken.address] = pair;
 });
 
     box.textContent = "";
-
+const updated = document.createElement("p");
+updated.textContent = "🕒 Last checked: " +
+  new Date().toLocaleTimeString();
+updated.style.color = "#a8bed4";
+updated.style.fontSize = "12px";
+box.appendChild(updated);
     if (!solana.length) {
       box.textContent = "No Solana tokens found. Try again later.";
       return;
