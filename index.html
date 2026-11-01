@@ -1077,6 +1077,12 @@ bubble.style.cursor = "pointer";
 bubble.onclick = () => {
   const details = document.createElement("div");
 
+const rankHeading = document.createElement("h4");
+rankHeading.textContent = `🔎 Token Account #${index + 1}`;
+rankHeading.style.color = "#38bdf8";
+rankHeading.style.marginBottom = "12px";
+details.appendChild(rankHeading);
+
   details.style.background = "#123456";
   details.style.padding = "16px";
   details.style.borderRadius = "12px";
