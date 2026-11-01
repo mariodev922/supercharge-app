@@ -1027,7 +1027,14 @@ walletMapInstruction.style.fontSize = "13px";
 walletMapInstruction.style.color = "#94a3b8";
 walletMapInstruction.style.marginBottom = "12px";
 results.appendChild(walletMapInstruction);
-   
+  
+const walletMapNote = document.createElement("p");
+walletMapNote.textContent = "ℹ️ Each bubble represents a token account, not necessarily one person. Exchange accounts may hold tokens for many customers, while liquidity pools may hold tokens used for trading. Account labels are not independently verified. Large holdings alone do not prove a token is unsafe.";
+walletMapNote.style.fontSize = "12px";
+walletMapNote.style.color = "#94a3b8";
+walletMapNote.style.marginBottom = "16px";
+results.appendChild(walletMapNote);
+ 
     const walletMap = document.createElement("div");
 walletMap.style.display = "flex";
 walletMap.style.flexWrap = "wrap";
