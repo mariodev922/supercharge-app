@@ -581,30 +581,22 @@ function checkHolderConcentration(top10Percent) {
     status: "Holder data not connected yet"
   };
 }
- async function testSolanaConnection() {
+ 
+async function testSolanaConnection() {
   try {
-    const response = await fetch(
-      "https://api.mainnet-beta.solana.com",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          jsonrpc: "2.0",
-          id: 1,
-          method: "getHealth"
-        })
-      }
-    );
+    const response = await fetch("/api/solana-test");
+
+    if (!response.ok) return false;
 
     const data = await response.json();
-    return data.result === "ok";
+
+    return data.connected === true;
   } catch (error) {
     console.error("Solana connection test failed:", error);
     return false;
   }
 }
+
 async function loadNewTokenAlerts() {
   const box = document.getElementById("newTokenResults");
   box.textContent = "🔎 Checking newly discovered tokens...";
