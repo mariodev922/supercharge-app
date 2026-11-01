@@ -978,11 +978,25 @@ if (hasSupply) {
     0
   );
   const top10Percent = (top10Amount / totalSupply) * 100;
-const concentrationLabel = top10Percent >= 50 ? "Higher concentration" : top10Percent >= 20 ? "Moderate concentration" : "Lower concentration";
+
+const top5Amount = holders.slice(0, 5).reduce(
+  (sum, holder) => sum + Number(holder.uiAmountString),
+  0
+);
+const top5Percent = (top5Amount / totalSupply) * 100;
+
+  const concentrationLabel = top10Percent >= 50 ? "Higher concentration" : top10Percent >= 20 ? "Moderate concentration" : "Lower concentration";
   const summary = document.createElement("p");
   summary.textContent = `Top 10 token accounts: ${top10Percent.toFixed(2)}% of total supply`;
   results.appendChild(summary);
-const indicator = document.createElement("p");
+
+const top5Summary = document.createElement("p");
+top5Summary.textContent = `Top 5 token accounts: ${top5Percent.toFixed(2)}% of total supply`;
+top5Summary.style.color = "#38bdf8";
+top5Summary.style.fontWeight = "bold";
+results.appendChild(top5Summary);
+
+  const indicator = document.createElement("p");
 indicator.textContent = `Holder concentration: ${concentrationLabel} (indicative only)`;
 results.appendChild(indicator);
 const bar = document.createElement("div");
