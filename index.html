@@ -1274,7 +1274,16 @@ walletMap.style.background = "#0c2040";
 walletMap.style.borderRadius = "12px";
 walletMap.style.marginBottom = "20px";
 results.appendChild(walletMap); 
-   
+ 
+const walletLegend = document.createElement("p");
+walletLegend.textContent =
+  "🔵 Blue: No shared owner detected  |  🟣 Purple: Shared owner detected (analysed accounts only)";
+walletLegend.style.color = "#9aaec4";
+walletLegend.style.fontSize = "12px";
+walletLegend.style.textAlign = "center";
+walletLegend.style.marginBottom = "12px";
+results.insertBefore(walletLegend, walletMap);
+  
     holders.forEach((holder, index) => {
       const bubble = document.createElement("div");
 const share = hasSupply
