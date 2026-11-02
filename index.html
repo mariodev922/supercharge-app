@@ -1221,7 +1221,7 @@ transparencyNote.textContent =
   "ℹ️ Account labels are provided by external sources and are not independently verified. A token account may belong to an exchange, liquidity pool, or individual. One person may control multiple accounts. This information does not prove who owns the tokens.";
 transparencyNote.style.fontSize = "12px";
 transparencyNote.style.color = "#94a3b8";
-details.appendChild(transparencyNote);
+
   const link = document.createElement("a");
   link.href = `https://solscan.io/account/${holder.address}`;
   link.textContent = "🔎 View on Solscan";
@@ -1231,6 +1231,7 @@ details.appendChild(transparencyNote);
   link.rel = "noopener noreferrer";
 
   details.appendChild(info);
+  details.appendChild(transparencyNote);
   details.appendChild(link);
 
   const previous = document.getElementById("wallet-details");
