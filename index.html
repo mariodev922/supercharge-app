@@ -1212,10 +1212,17 @@ details.appendChild(rankHeading);
   const labelText = holder.accountLabel
     ? `${holder.accountLabel} (external label, not independently verified)`
     : "Unclassified (not verified)";
+const accountName = String(holder.accountLabel || "").toLowerCase();
 
+const accountType =
+  /liquidity|pool|raydium|orca|meteora/.test(accountName)
+    ? "💧 Possible liquidity pool (external label)"
+    : /binance|coinbase|kraken|bybit|okx|exchange/.test(accountName)
+    ? "🏦 Exchange-labelled account (unverified)"
+    : "🔍 Unclassified account";
   const info = document.createElement("p");
   info.textContent =
-    `Holding: ${percentageText} | Account: ${holder.address} | Label: ${labelText}`;
+    `Holding: ${percentageText} | Account: ${holder.address} | Label: ${labelText} | Type: ${accountType}`;
 const transparencyNote = document.createElement("p");
 transparencyNote.textContent =
   "ℹ️ Account labels are provided by external sources and are not independently verified. A token account may belong to an exchange, liquidity pool, or individual. One person may control multiple accounts. This information does not prove who owns the tokens.";
