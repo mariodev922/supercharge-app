@@ -1216,7 +1216,12 @@ details.appendChild(rankHeading);
   const info = document.createElement("p");
   info.textContent =
     `Holding: ${percentageText} | Account: ${holder.address} | Label: ${labelText}`;
-
+const transparencyNote = document.createElement("p");
+transparencyNote.textContent =
+  "ℹ️ Account labels are provided by external sources and are not independently verified. A token account may belong to an exchange, liquidity pool, or individual. One person may control multiple accounts. This information does not prove who owns the tokens.";
+transparencyNote.style.fontSize = "12px";
+transparencyNote.style.color = "#94a3b8";
+details.appendChild(transparencyNote);
   const link = document.createElement("a");
   link.href = `https://solscan.io/account/${holder.address}`;
   link.textContent = "🔎 View on Solscan";
