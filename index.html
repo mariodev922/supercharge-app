@@ -714,6 +714,24 @@ if (Number.isFinite(liquidity) && liquidity < 5000) {
   item.appendChild(warning);
 }
 
+if (!Number.isFinite(liquidity)) {
+  const status = document.createElement("small");
+  status.textContent =
+    "⚪ Liquidity data unavailable — risk cannot be assessed from liquidity.";
+  status.style.display = "block";
+  status.style.color = "#a8bed4";
+  status.style.marginTop = "6px";
+  item.appendChild(status);
+} else if (liquidity >= 5000) {
+  const status = document.createElement("small");
+  status.textContent =
+    "🟢 Liquidity reported — this does not mean the token is safe.";
+  status.style.display = "block";
+  status.style.color = "#43e6a0";
+  status.style.marginTop = "6px";
+  item.appendChild(status);
+}
+
 }
 }
   box.appendChild(item);
