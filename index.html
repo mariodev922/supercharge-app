@@ -1155,12 +1155,47 @@ holders.forEach((holder) => {
   }
 });
 
-walletMapSummary.textContent =
-  `📊 Displayed accounts: ${holders.length} | 🏦 Exchange-labelled: ${mapCounts.exchange} | 💧 Possible pools: ${mapCounts.pool} | 🔍 Unclassified: ${mapCounts.other}`;
 
-walletMapSummary.style.color = "#38bdf8";
-walletMapSummary.style.fontSize = "13px";
+walletMapSummary.style.display = "grid";
+walletMapSummary.style.gridTemplateColumns =
+  "repeat(2, minmax(0, 1fr))";
+walletMapSummary.style.gap = "10px";
+walletMapSummary.style.marginBottom = "18px";
+
+const summaryItems = [
+  ["📊 Displayed accounts", holders.length],
+  ["🏦 Exchange-labelled", mapCounts.exchange],
+  ["💧 Possible pools", mapCounts.pool],
+  ["🔍 Unclassified", mapCounts.other]
+];
+
+summaryItems.forEach(([label, count]) => {
+  const card = document.createElement("div");
+  card.style.background = "#123456";
+  card.style.border = "1px solid #294763";
+  card.style.borderRadius = "12px";
+  card.style.padding = "12px";
+  card.style.textAlign = "center";
+  card.style.minWidth = "0";
+
+  const heading = document.createElement("div");
+  heading.textContent = label;
+  heading.style.color = "#94a3b8";
+  heading.style.fontSize = "12px";
+
+  const number = document.createElement("div");
+  number.textContent = count;
+  number.style.color = "#38bdf8";
+  number.style.fontSize = "24px";
+  number.style.fontWeight = "bold";
+
+  card.appendChild(heading);
+  card.appendChild(number);
+  walletMapSummary.appendChild(card);
+});
+
 results.appendChild(walletMapSummary);
+
 
  
 const walletMapInstruction = document.createElement("p");
