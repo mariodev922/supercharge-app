@@ -1228,10 +1228,14 @@ sharedOwnersSection.appendChild(sharedOwnersTitle);
 
 const sharedOwnersContent = document.createElement("p");
 
+
 sharedOwnersContent.textContent =
-  sharedOwners.length > 0
-    ? `Found ${sharedOwners.length} shared-owner group(s) among the analysed token accounts.`
-    : "No shared owners detected among the analysed token accounts.";
+  data.ownerLookupSuccessful !== true
+    ? "⚠️ Owner information could not be fully verified. Shared-owner results may be incomplete."
+    : sharedOwners.length > 0
+      ? `Found ${sharedOwners.length} shared-owner group(s) among the analysed token accounts.`
+      : "No shared owners detected among the analysed token accounts.";
+
 
 sharedOwnersContent.style.color = "#94a3b8";
 sharedOwnersSection.appendChild(sharedOwnersContent);
