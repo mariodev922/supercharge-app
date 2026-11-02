@@ -1323,7 +1323,24 @@ copyButton.onclick = async () => {
 };
 
 details.appendChild(copyButton);
+const closeButton = document.createElement("button");
+closeButton.textContent = "✖ Close Details";
+closeButton.style.display = "block";
+closeButton.style.marginTop = "10px";
+closeButton.style.padding = "10px 14px";
+closeButton.style.background = "#234563";
+closeButton.style.color = "#ffffff";
+closeButton.style.border = "none";
+closeButton.style.borderRadius = "8px";
+closeButton.style.cursor = "pointer";
+
+closeButton.onclick = () => {
+  details.remove();
+};
+
+details.appendChild(closeButton);  
   const previous = document.getElementById("wallet-details");
+  
   if (previous) previous.remove();
 
   details.id = "wallet-details";
