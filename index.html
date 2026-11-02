@@ -699,6 +699,17 @@ ageInfo.textContent = "⏱️ Trading Pair Age: " + pairAge;
 ageInfo.style.display = "block";
 ageInfo.style.color = "#a8bed4";
 item.appendChild(ageInfo);
+
+if (Number.isFinite(createdAt) && createdAt > 0 &&
+    ageMs >= 0 && ageMs < 3600000) {
+  const newPairWarning = document.createElement("small");
+  newPairWarning.textContent =
+    "⚠️ Very new trading pair (under 1 hour). Limited history — research carefully.";
+  newPairWarning.style.display = "block";
+  newPairWarning.style.color = "#ffcc66";
+  newPairWarning.style.marginTop = "6px";
+  item.appendChild(newPairWarning);
+}
    
    if (market) {
   const info = document.createElement("small");
