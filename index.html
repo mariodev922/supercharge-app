@@ -625,7 +625,16 @@ const tokenMarketData = {};
 (pairData.pairs || []).forEach(pair => {
   if (pair.chainId === "solana" && pair.baseToken) {
     tokenNames[pair.baseToken.address] = pair.baseToken.name;
-tokenMarketData[pair.baseToken.address] = pair;
+const address = pair.baseToken.address;
+const previous = tokenMarketData[address];
+
+if (
+  !previous ||
+  Number(pair.liquidity?.usd ?? -1) >
+    Number(previous.liquidity?.usd ?? -1)
+) {
+  tokenMarketData[address] = pair;
+}
   }
 });
 
