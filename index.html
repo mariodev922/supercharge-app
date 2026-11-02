@@ -901,6 +901,7 @@ return selectedPair;
   return {
   
 holders: data.holders || [],
+  sharedOwners: data.sharedOwners || [],  
 totalSupply: data.totalSupply || null,
 mintAuthority: data.mintAuthority,
 freezeAuthority: data.freezeAuthority
@@ -920,6 +921,7 @@ async function showTokenHolders() {
   try {
  const tokenData = await loadTokenHolders(mint);
 const holders = tokenData.holders;
+ const sharedOwners = tokenData.sharedOwners || [];   
   const liquidityData = await loadTokenLiquidity(mint).catch(() => null);
 const mintAuthority = tokenData.mintAuthority;
  const freezeAuthority = tokenData.freezeAuthority;
