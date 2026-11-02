@@ -1236,6 +1236,32 @@ sharedOwnersContent.textContent =
 sharedOwnersContent.style.color = "#94a3b8";
 sharedOwnersSection.appendChild(sharedOwnersContent);
 
+sharedOwners.forEach((group) => {
+  const ownerRow = document.createElement("p");
+
+  ownerRow.style.fontSize = "12px";
+  ownerRow.style.overflowWrap = "anywhere";
+  ownerRow.style.marginTop = "12px";
+
+  const ownerLink = document.createElement("a");
+  ownerLink.href =
+    "https://solscan.io/account/" +
+    encodeURIComponent(group.owner);
+  ownerLink.target = "_blank";
+  ownerLink.rel = "noopener noreferrer";
+  ownerLink.style.color = "#00bfff";
+  ownerLink.textContent = group.owner;
+
+  ownerRow.appendChild(ownerLink);
+  ownerRow.appendChild(
+    document.createTextNode(
+      " — " + group.tokenAccountCount + " token accounts"
+    )
+  );
+
+  sharedOwnersSection.appendChild(ownerRow);
+});
+
 results.appendChild(sharedOwnersSection);
 
     const walletMap = document.createElement("div");
