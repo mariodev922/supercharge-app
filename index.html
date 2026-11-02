@@ -1135,6 +1135,33 @@ walletMapHeading.style.color = "#55c9ff";
 walletMapHeading.style.marginTop = "24px";
 results.appendChild(walletMapHeading); 
 
+const walletMapSummary = document.createElement("p");
+
+const mapCounts = {
+  exchange: 0,
+  pool: 0,
+  other: 0
+};
+
+holders.forEach((holder) => {
+  const name = String(holder.accountLabel || "").toLowerCase();
+
+  if (/liquidity|pool|raydium|orca|meteora/.test(name)) {
+    mapCounts.pool++;
+  } else if (/binance|coinbase|kraken|bybit|okx|exchange/.test(name)) {
+    mapCounts.exchange++;
+  } else {
+    mapCounts.other++;
+  }
+});
+
+walletMapSummary.textContent =
+  `📊 Displayed accounts: ${holders.length} | 🏦 Exchange-labelled: ${mapCounts.exchange} | 💧 Possible pools: ${mapCounts.pool} | 🔍 Unclassified: ${mapCounts.other}`;
+
+walletMapSummary.style.color = "#38bdf8";
+walletMapSummary.style.fontSize = "13px";
+results.appendChild(walletMapSummary);
+
  
 const walletMapInstruction = document.createElement("p");
 walletMapInstruction.textContent =
