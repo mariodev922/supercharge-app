@@ -622,21 +622,37 @@ if (!solana.length) {
 const pairData = pairResponse.ok ? await pairResponse.json() : { pairs: [] };
 const tokenNames = {};
 const tokenMarketData = {};
-(pairData.pairs || []).forEach(pair => {
-  if (pair.chainId === "solana" && pair.baseToken) {
-    tokenNames[pair.baseToken.address] = pair.baseToken.name;
-const address = pair.baseToken.address;
-const previous = tokenMarketData[address];
 
-if (
-  !previous ||
-  Number(pair.liquidity?.usd ?? -1) >
+const requestedAddresses = new Set(
+  solana.map(t => t.tokenAddress)
+);
+
+(pairData.pairs || []).forEach(pair => {
+  if (pair.chainId !== "solana") return;
+
+  const base = pair.baseToken;
+  const quote = pair.quoteToken;
+
+  const token = [base, quote].find(
+    t => t && requestedAddresses.has(t.address)
+  );
+
+  if (!token) return;
+
+  const address = token.address;
+  tokenNames[address] = token.name || token.symbol;
+
+  const previous = tokenMarketData[address];
+
+  if (
+    !previous ||
+    Number(pair.liquidity?.usd ?? -1) >
     Number(previous.liquidity?.usd ?? -1)
-) {
-  tokenMarketData[address] = pair;
-}
+  ) {
+    tokenMarketData[address] = pair;
   }
 });
+
 
     box.textContent = "";
 const updated = document.createElement("p");
