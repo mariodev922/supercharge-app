@@ -123,7 +123,8 @@ const freezeAuthority =
     typeof parsedMint.info?.freezeAuthority === "string")
     ? parsedMint.info.freezeAuthority
     : "unknown";
-
+const totalSupplyRaw =
+  parsedMint?.info?.supply ?? null;
   const tokenAccounts = data.result?.value ?? [];
 
 const ownerResponse = await fetch(env.HELIUS_RPC_URL, {
@@ -151,10 +152,18 @@ const accountOwners = ownerData?.result?.value ?? [];
 
 const ownerCounts = {};
 
-accountOwners.forEach((account) => {
+const ownerBalances = {};
+
+accountOwners.forEach((account, index) => {
   const owner = account?.data?.parsed?.info?.owner;
   if (owner) {
     ownerCounts[owner] = (ownerCounts[owner] || 0) + 1;
+
+const balance = Number(tokenAccounts[index]?.uiAmountString ?? 0);
+if (Number.isFinite(balance)) {
+  ownerBalances[owner] = (ownerBalances[owner] || 0) + balance;
+}
+ 
   }
 });
 
@@ -162,7 +171,15 @@ const sharedOwners = Object.entries(ownerCounts)
   .filter(([owner, count]) => count > 1)
   .map(([owner, count]) => ({
     owner,
-    tokenAccountCount: count
+    
+tokenAccountCount: count,
+combinedBalance: ownerBalances[owner] || 0,
+supplyPercentage:
+  totalSupplyRaw !== null && Number(totalSupplyRaw) > 0
+    ? ((ownerBalances[owner] || 0) /
+        Number(totalSupplyRaw)) * 100
+    : null
+
   }));
         
         return Response.json({
