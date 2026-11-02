@@ -672,7 +672,10 @@ const market = tokenMarketData[t.tokenAddress];
   info.style.display = "block";
   item.appendChild(info);
    
-const liquidity = Number(market.liquidity?.usd);
+const liquidity =
+  market.liquidity?.usd == null
+    ? NaN
+    : Number(market.liquidity.usd);
 
 if (Number.isFinite(liquidity) && liquidity < 5000) {
   const warning = document.createElement("small");
