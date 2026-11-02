@@ -149,7 +149,7 @@ const ownerData = ownerResponse.ok
   : null;
 
 const accountOwners = ownerData?.result?.value ?? []; 
-
+const ownerLookupSuccessful = ownerResponse.ok && Array.isArray(ownerData?.result?.value);
 const ownerCounts = {};
 
 const ownerBalances = {};
@@ -184,7 +184,8 @@ supplyPercentage:
         
         return Response.json({
           mint,
- sharedOwners,         
+ sharedOwners,  
+ ownerLookupSuccessful,         
 mintAuthority: mintAuthority === undefined ? "unknown" : mintAuthority,
 
  freezeAuthority: freezeAuthority,         
