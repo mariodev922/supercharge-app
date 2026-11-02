@@ -1287,6 +1287,19 @@ bubble.style.width = `${bubbleSize}px`;
 bubble.style.height = `${bubbleSize}px`;
 bubble.style.borderRadius = "50%";
 bubble.style.background = "#00bfff";
+ 
+const sharedOwnerGroup = sharedOwners.find(
+  group => group.owner === holder.ownerAddress
+);
+
+if (sharedOwnerGroup) {
+  bubble.style.background = "#a78bfa";
+  bubble.style.border = "3px solid #ffffff";
+  bubble.title = "Shared owner: " +
+    sharedOwnerGroup.tokenAccountCount +
+    " token accounts";
+}
+     
 bubble.style.display = "flex";
 bubble.style.alignItems = "center";
 bubble.style.justifyContent = "center";
