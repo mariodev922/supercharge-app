@@ -1213,6 +1213,24 @@ walletMapNote.style.color = "#94a3b8";
 walletMapNote.style.marginBottom = "16px";
 results.appendChild(walletMapNote);
  
+const sharedOwnersSection = document.createElement("div");
+sharedOwnersSection.style.padding = "14px";
+sharedOwnersSection.style.background = "#0c2040";
+sharedOwnersSection.style.borderRadius = "12px";
+sharedOwnersSection.style.marginBottom = "16px";
+
+const sharedOwnersTitle = document.createElement("h3");
+sharedOwnersTitle.textContent = "🔗 Shared Account Owners";
+sharedOwnersTitle.style.color = "#00bfff";
+sharedOwnersSection.appendChild(sharedOwnersTitle);
+
+const sharedOwnersContent = document.createElement("p");
+sharedOwnersContent.textContent = "Checking for token accounts controlled by the same owner...";
+sharedOwnersContent.style.color = "#94a3b8";
+sharedOwnersSection.appendChild(sharedOwnersContent);
+
+results.appendChild(sharedOwnersSection);
+
     const walletMap = document.createElement("div");
 walletMap.style.display = "flex";
 walletMap.style.flexWrap = "wrap";
