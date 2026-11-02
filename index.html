@@ -679,6 +679,27 @@ link.textContent = "🆕 " +
   " • View Token: " +
   t.tokenAddress.slice(0, 8) + "...";
 const market = tokenMarketData[t.tokenAddress];
+ 
+const createdAt = Number(market?.pairCreatedAt);
+const ageMs = Date.now() - createdAt;
+
+const pairAge =
+  Number.isFinite(createdAt) &&
+  createdAt > 0 &&
+  ageMs >= 0
+    ? ageMs < 3600000
+      ? Math.floor(ageMs / 60000) + " minutes"
+      : ageMs < 86400000
+        ? Math.floor(ageMs / 3600000) + " hours"
+        : Math.floor(ageMs / 86400000) + " days"
+    : "Unknown";
+
+const ageInfo = document.createElement("small");
+ageInfo.textContent = "⏱️ Trading Pair Age: " + pairAge;
+ageInfo.style.display = "block";
+ageInfo.style.color = "#a8bed4";
+item.appendChild(ageInfo);
+   
    if (market) {
   const info = document.createElement("small");
   info.textContent =
