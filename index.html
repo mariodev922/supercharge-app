@@ -1258,7 +1258,14 @@ sharedOwners.forEach((group) => {
       " — " + group.tokenAccountCount + " token accounts"
     )
   );
-
+if (Number.isFinite(group.supplyPercentage)) {
+  ownerRow.appendChild(
+    document.createTextNode(
+      " — " + group.supplyPercentage.toFixed(2) +
+      "% of total supply (analysed accounts)"
+    )
+  );
+}
   sharedOwnersSection.appendChild(ownerRow);
 });
 
