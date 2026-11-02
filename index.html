@@ -1302,7 +1302,27 @@ transparencyNote.style.color = "#94a3b8";
   details.appendChild(info);
   details.appendChild(transparencyNote);
   details.appendChild(link);
+const copyButton = document.createElement("button");
+copyButton.textContent = "📋 Copy Account Address";
+copyButton.style.display = "block";
+copyButton.style.marginTop = "12px";
+copyButton.style.padding = "10px 14px";
+copyButton.style.background = "#00bfff";
+copyButton.style.color = "#071327";
+copyButton.style.border = "none";
+copyButton.style.borderRadius = "8px";
+copyButton.style.cursor = "pointer";
 
+copyButton.onclick = async () => {
+  try {
+    await navigator.clipboard.writeText(holder.address);
+    copyButton.textContent = "✅ Address Copied!";
+  } catch (error) {
+    copyButton.textContent = "Copy failed — try again";
+  }
+};
+
+details.appendChild(copyButton);
   const previous = document.getElementById("wallet-details");
   if (previous) previous.remove();
 
