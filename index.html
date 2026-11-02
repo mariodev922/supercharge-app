@@ -678,7 +678,9 @@ link.textContent = "🆕 " +
 (tokenNames[t.tokenAddress] || t.name || t.symbol || "New Token") +
   " • View Token: " +
   t.tokenAddress.slice(0, 8) + "...";
-const market = tokenMarketData[t.tokenAddress];
+link.style.color = "#39bfff";
+item.appendChild(link);
+    const market = tokenMarketData[t.tokenAddress];
  
 const createdAt = Number(market?.pairCreatedAt);
 const ageMs = Date.now() - createdAt;
@@ -724,7 +726,7 @@ if (Number.isFinite(createdAt) && createdAt > 0 &&
     " | 24h Volume: $" + (market.volume?.h24 ?? "N/A");
  
   link.style.color = "#39bfff";
-  item.appendChild(link);
+  
  if (market) {
   info.style.display = "block";
   item.appendChild(info);
