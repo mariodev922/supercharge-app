@@ -1497,8 +1497,8 @@ link.style.marginBottom = "16px";
 link.style.color = "#38bdf8";
 results.appendChild(link);
     });
-  } catch (error) {
-    results.textContent = "Unable to retrieve token accounts. Please check the address.";
+  } catch (error) {console.error("Holder analysis error:", error);
+results.textContent = "Holder analysis error: " + (error?.message || String(error));
   }
 }
 </script>
