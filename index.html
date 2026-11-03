@@ -222,14 +222,32 @@ if (chart) {
 
 
     const frame = document.createElement("iframe");
-frame.src = "https://www.geckoterminal.com/solana/pools/" + encodeURIComponent(pair.pairAddress) + "?embed=1&info=0&swaps=0";
+const chartChain = {
+  solana: "solana",
+  ethereum: "eth",
+  bsc: "bsc",
+  base: "base",
+  arbitrum: "arbitrum",
+  polygon: "polygon_pos"
+}[pair.chainId];
+
+if (!chartChain) {
+  chart.textContent = "Chart unavailable for this blockchain.";
+} else {
+  frame.src = "https://www.geckoterminal.com/" +
+    chartChain + "/pools/" +
+    encodeURIComponent(pair.pairAddress) +
+    "?embed=1";
+}
 frame.style.width = "100%";
 frame.style.height = "550px";
 frame.style.border = "0";
 frame.style.marginTop = "15px";
 frame.title = "Live token chart";
 frame.loading = "lazy";
-chart.appendChild(frame);
+if (chartChain) {
+  chart.appendChild(frame);
+}
     }
   } catch (error) {
     result.textContent =
