@@ -904,7 +904,8 @@ holders: data.holders || [],
   sharedOwners: data.sharedOwners || [],  
 totalSupply: data.totalSupply || null,
 mintAuthority: data.mintAuthority,
-freezeAuthority: data.freezeAuthority
+freezeAuthority: data.freezeAuthority,
+ownerLookupSuccessful: data.ownerLookupSuccessful
 };
 }   
 async function showTokenHolders() {
@@ -1230,7 +1231,7 @@ const sharedOwnersContent = document.createElement("p");
 
 
 sharedOwnersContent.textContent =
-  data.ownerLookupSuccessful !== true
+tokenData.ownerLookupSuccessful !== true
     ? "⚠️ Owner information could not be fully verified. Shared-owner results may be incomplete."
     : sharedOwners.length > 0
       ? `Found ${sharedOwners.length} shared-owner group(s) among the analysed token accounts.`
