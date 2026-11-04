@@ -161,7 +161,7 @@ if (holderInput) {
 }
 
   if (!token) {
-    result.textContent = "Please enter a Solana token address.";
+    result.textContent = "Please enter a token contract address to search.";
     return;
   }
 
@@ -216,7 +216,19 @@ console.log("SUPERCHARGE selected pool:", {
   liquidity: pair.liquidity?.usd,
   marketCap: pair.marketCap
 });
+const chainNames = {
+  solana: "Solana",
+  ethereum: "Ethereum",
+  base: "Base",
+  bsc: "BNB Chain",
+  arbitrum: "Arbitrum",
+  polygon: "Polygon",
+  optimism: "Optimism",
+  avalanche: "Avalanche"
+};
 
+const blockchain =
+  chainNames[pair.chainId] || pair.chainId || "Unknown";
     const money = n =>
       n == null ? "N/A" :
       Number(n).toLocaleString("en-US", {maximumFractionDigits: 10})
@@ -231,6 +243,7 @@ result.style.borderRadius = "12px";
 const change = Number(pair.priceChange?.h24 || 0);
     result.textContent =
       "Token: " + (pair.baseToken?.name || "Unknown") + "\n" +
+"Blockchain: " + blockchain + "\n" +
       "Symbol: " + (pair.baseToken?.symbol || "Unknown") + "\n" +
  "Price: $" + money(pair.priceUsd) + "\n" + "Liquidity: $" + money(pair.liquidity?.usd) + "\n" +
     "24h Volume: $" + money(pair.volume?.h24) + "\n" +
