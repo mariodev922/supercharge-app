@@ -146,6 +146,8 @@ Scroll down to Token Holder Analysis to inspect token accounts and concentration
 async function searchToken() {
   const token = document.getElementById("token").value.trim();
   const result = document.getElementById("result");
+  const holderInput = document.getElementById("holderMint");
+if (holderInput) holderInput.value = token;
 
   if (!token) {
     result.textContent = "Please enter a Solana token address.";
