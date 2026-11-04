@@ -174,10 +174,22 @@ async function searchToken() {
       return;
     }
 
-    const pair = pairs.sort(
-      (a, b) =>
-        (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0)
-    )[0];
+    const pair = pairs.sort((a, b) => {
+  const aBase =
+    a.baseToken?.address?.toLowerCase() ===
+    token.toLowerCase();
+
+  const bBase =
+    b.baseToken?.address?.toLowerCase() ===
+    token.toLowerCase();
+
+  if (aBase !== bBase) {
+    return aBase ? -1 : 1;
+  }
+
+  return (b.liquidity?.usd || 0) -
+         (a.liquidity?.usd || 0);
+})[0];
 
     const money = n =>
       n == null ? "N/A" :
