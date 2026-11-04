@@ -203,24 +203,7 @@ console.log("SUPERCHARGE selected pool:", {
   liquidity: pair.liquidity?.usd,
   marketCap: pair.marketCap
 });
-const poolDebug = document.createElement("pre");
 
-poolDebug.textContent =
-  "🔍 SELECTED TRADING POOL\n" +
-  "Chain: " + pair.chainId + "\n" +
-  "Exchange: " + pair.dexId + "\n" +
-  "Base: " + pair.baseToken?.symbol + "\n" +
-  "Quote: " + pair.quoteToken?.symbol + "\n" +
-  "Pool: " + pair.pairAddress + "\n" +
-  "Price: $" + pair.priceUsd + "\n" +
-  "Liquidity: $" + pair.liquidity?.usd;
-
-poolDebug.style.cssText =
-  "white-space:pre-wrap;overflow-wrap:anywhere;" +
-  "color:#43e6a0;background:#102747;" +
-  "padding:12px;border-radius:10px;font-size:12px;";
-
-result.parentNode.insertBefore(poolDebug, result);    
     const money = n =>
       n == null ? "N/A" :
       Number(n).toLocaleString("en-US", {maximumFractionDigits: 10})
