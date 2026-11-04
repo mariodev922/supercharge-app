@@ -175,17 +175,19 @@ async function searchToken() {
       return;
     }
 
-    const pair = pairs.sort((a, b) => {
-  const aBase =
-    a.baseToken?.address?.toLowerCase() ===
-    token.toLowerCase();
+const preferredQuotes = ["USDC", "USDT", "SOL", "WSOL"];
 
-  const bBase =
-    b.baseToken?.address?.toLowerCase() ===
-    token.toLowerCase();
+const pair = pairs.sort((a, b) => {
+  const aPreferred = preferredQuotes.includes(
+    a.quoteToken?.symbol?.toUpperCase()
+  );
 
-  if (aBase !== bBase) {
-    return aBase ? -1 : 1;
+  const bPreferred = preferredQuotes.includes(
+    b.quoteToken?.symbol?.toUpperCase()
+  );
+
+  if (aPreferred !== bPreferred) {
+    return aPreferred ? -1 : 1;
   }
 
   return (b.liquidity?.usd || 0) -
