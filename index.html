@@ -156,7 +156,9 @@ async function searchToken() {
   const token = document.getElementById("token").value.trim();
   const result = document.getElementById("result");
   const holderInput = document.getElementById("holderMint");
-if (holderInput) holderInput.value = token;
+if (holderInput) {
+  holderInput.value = /^0x[a-fA-F0-9]{40}$/.test(token) ? "" : token;
+}
 
   if (!token) {
     result.textContent = "Please enter a Solana token address.";
