@@ -289,7 +289,13 @@ if (chartChain) {
     }
 if (pair.chainId === "solana") {
   showTokenHolders();
-}    
+} else {
+  const holderResults = document.getElementById("holderResults");
+  if (holderResults) {
+    holderResults.textContent =
+      "Holder analysis is currently available for Solana tokens only.";
+  }
+}
   } catch (error) {
     result.textContent =
       "Could not load market data. Try again.";
