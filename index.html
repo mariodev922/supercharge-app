@@ -165,8 +165,9 @@ async function searchToken() {
     const data = await response.json();
    
     const pairs = (data.pairs || []).filter(
-  p => p.baseToken?.address?.toLowerCase() === token.toLowerCase() ||
-  p.quoteToken?.address?.toLowerCase() === token.toLowerCase()
+  p =>
+    p.baseToken?.address?.toLowerCase() ===
+    token.toLowerCase()
 );
 
     if (!pairs.length) {
