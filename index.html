@@ -240,7 +240,9 @@ const blockchain =
    result.style.padding = "16px";
 result.style.background = "#102747";
 result.style.borderRadius = "12px";
-const change = Number(pair.priceChange?.h24 || 0);
+const change = pair.priceChange?.h24 == null
+  ? null
+  : Number(pair.priceChange.h24);
     result.textContent =
       "Token: " + (pair.baseToken?.name || "Unknown") + "\n" +
 "Blockchain: " + blockchain + "\n" +
@@ -256,12 +258,15 @@ const warnings = [];
 if (liquidity < 10000) warnings.push("⚠️ Low liquidity");
 if (volume < 1000) warnings.push("⚠️ Low 24h trading volume");
     const priceChange = Number(pair.priceChange?.h24 || 0);
-if (priceChange <= -30) warnings.push("⚠️ Price dropped 30% or more in 24h");
+if (pair.priceChange?.h24 != null && priceChange <= -30) warnings.push("⚠️ Price dropped 30% or more in 24h");
 riskResult.style.color = "white";
 riskResult.textContent =
   "💧 Liquidity: $" + liquidity.toLocaleString() +
   "\n📊 24h Volume: $" + volume.toLocaleString() +
-  "\n📉 24h Price Change: " + priceChange.toFixed(2) + "%" +
+ "\n📉 24h Price Change: " +
+(pair.priceChange?.h24 == null
+  ? "N/A"
+  : priceChange.toFixed(2) + "%") +
   "\n\n🛡️ Risk Indicators: " +
   (warnings.length ? warnings.join(" | ") : "ℹ️ No warnings triggered by these basic market checks. This does not mean the token is safe.") +
   "\n\n⚠️ This is not a full security audit.";
