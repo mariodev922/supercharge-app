@@ -989,6 +989,12 @@ async function showTokenHolders() {
   const mint = document.getElementById("holderMint").value.trim();
   const results = document.getElementById("holderResults");
 
+if (/^0x[a-fA-F0-9]{40}$/.test(mint)) {
+  results.textContent =
+    "Holder analysis is currently available for Solana tokens only.";
+  return;
+}
+
   results.textContent = "Loading token accounts...";
 
   if (!mint) {
