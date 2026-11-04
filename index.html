@@ -285,6 +285,9 @@ if (chartChain) {
   chart.appendChild(frame);
 }
     }
+if (pair.chainId === "solana") {
+  showTokenHolders();
+}    
   } catch (error) {
     result.textContent =
       "Could not load market data. Try again.";
