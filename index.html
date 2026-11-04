@@ -237,7 +237,7 @@ riskResult.textContent =
   "\n📊 24h Volume: $" + volume.toLocaleString() +
   "\n📉 24h Price Change: " + priceChange.toFixed(2) + "%" +
   "\n\n🛡️ Risk Indicators: " +
-  (warnings.length ? warnings.join(" | ") : "✅ No basic market warnings detected.") +
+  (warnings.length ? warnings.join(" | ") : "ℹ️ No warnings triggered by these basic market checks. This does not mean the token is safe.") +
   "\n\n⚠️ This is not a full security audit.";
 riskResult.style.whiteSpace = "pre-line";
     const chart = document.getElementById("tokenChart");
