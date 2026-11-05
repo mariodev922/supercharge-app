@@ -669,7 +669,19 @@ const marketRiskRating =
 "Liquidity / Market Cap: " + (liquidityRatio == null ? "N/A" : liquidityRatio.toFixed(2) + "%") + "\n" +
      (warnings.length ? "⚠️ " + warnings.join("; ") : "No low-liquidity or low-volume flags detected.") +
       "\nMarket data only. Contract, holder and liquidity-lock risks are not verified.";
-result.textContent += "\n\n🔐 Wallet Transparency: Holder concentration not yet verified."; 
+const holderData = await getHolderConcentration(token);
+
+if (holderData && Number.isFinite(holderData.percentage)) {
+  result.textContent +=
+    "\n\n🔐 Wallet Transparency: Top 10 token accounts hold " +
+    holderData.percentage.toFixed(2) +
+    "% of supply. " +
+    checkHolderConcentration(holderData.percentage) +
+    " (indicative only; not a safety guarantee).";
+} else {
+  result.textContent +=
+    "\n\n🔐 Wallet Transparency: Holder concentration data unavailable.";
+}
     result.style.whiteSpace = "pre-line";
    
   } catch (error) {
