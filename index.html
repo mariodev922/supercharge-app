@@ -548,10 +548,24 @@ const money = n => typeof n === "number"
     })
   : "N/A";
 
-stats.textContent =
-  "Market Cap: " + money(t.marketCap) +
-  " | Liquidity: " + money(t.liquidity) +
-" | 24h Volume: " + money(t.volume24h);
+
+stats.innerHTML = "";
+
+const marketRow = document.createElement("div");
+marketRow.textContent = "💰 Market Cap: " + money(t.marketCap);
+
+const liquidityRow = document.createElement("div");
+liquidityRow.textContent = "💧 Liquidity: " + money(t.liquidity);
+
+const volumeRow = document.createElement("div");
+volumeRow.textContent = "📊 24h Volume: " + money(t.volume24h);
+
+[marketRow, liquidityRow, volumeRow].forEach(row => {
+  row.style.padding = "7px 0";
+  row.style.borderBottom = "1px solid rgba(255,255,255,0.12)";
+  stats.appendChild(row);
+});
+
   
 const change = document.createElement("div");
 change.style.marginTop = "6px";
