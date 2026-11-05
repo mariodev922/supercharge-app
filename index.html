@@ -931,6 +931,7 @@ function checkBoostToken() {
   if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token)) {
     message.textContent = "❌ Please enter a valid Solana token address.";
     message.style.color = "#ff8888";
+    document.getElementById("boostPreview").style.display = "none";
     return;
   }
 
