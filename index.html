@@ -191,6 +191,13 @@ if (holderInput) {
 const preferredQuotes = ["USDC", "USDT", "SOL", "WSOL"];
 
 const pair = pairs.sort((a, b) => {
+  const aLiquidity = Number(a.liquidity?.usd || 0);
+  const bLiquidity = Number(b.liquidity?.usd || 0);
+
+  if (aLiquidity !== bLiquidity) {
+    return bLiquidity - aLiquidity;
+  }
+
   const aPreferred = preferredQuotes.includes(
     a.quoteToken?.symbol?.toUpperCase()
   );
@@ -199,12 +206,7 @@ const pair = pairs.sort((a, b) => {
     b.quoteToken?.symbol?.toUpperCase()
   );
 
-  if (aPreferred !== bPreferred) {
-    return aPreferred ? -1 : 1;
-  }
-
-  return (b.liquidity?.usd || 0) -
-         (a.liquidity?.usd || 0);
+  return Number(bPreferred) - Number(aPreferred);
 })[0];
 console.log("SUPERCHARGE selected pool:", {
   chain: pair.chainId,
