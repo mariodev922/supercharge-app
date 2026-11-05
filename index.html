@@ -73,10 +73,27 @@ footer{text-align:center;padding:30px;color:#8da9c9;font-size:12px}
 </section>
 <div class="grid">
 <div class="card"><h3>🔎 Coin Radar</h3><p>Discover recently listed Solana tokens.</p><button onclick="loadCoinRadar()">🔄 Discover Tokens</button>
- <div style="margin:12px 0">
-  <input id="minMarketCap" type="number" min="0" placeholder="Min Market Cap ($)">
-  <input id="minLiquidity" type="number" min="0" placeholder="Min Liquidity ($)">
-</div> 
+
+<div style="margin:12px 0; display:grid; gap:12px;">
+
+  <div>
+    <label for="minMarketCap" style="display:block; margin-bottom:6px;">
+      Minimum Market Cap ($)
+    </label>
+    <input id="minMarketCap" type="number"
+      min="0" placeholder="e.g. 50000">
+  </div>
+
+  <div>
+    <label for="minLiquidity" style="display:block; margin-bottom:6px;">
+      Minimum Liquidity ($)
+    </label>
+    <input id="minLiquidity" type="number"
+      min="0" placeholder="e.g. 50000">
+  </div>
+
+</div>
+
   <div id="radarResults"></div></div>
 <div class="card">
   <h3>🚨 New Token Alerts</h3>
