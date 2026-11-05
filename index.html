@@ -312,6 +312,12 @@ if (pair.chainId === "solana") {
   showTokenHolders();
 } else {
   const holderResults = document.getElementById("holderResults");
+ const holderMint =
+  document.getElementById("holderMint");
+
+if (holderMint) {
+  holderMint.value = "";
+} 
   if (holderResults) {
     holderResults.textContent =
       "Holder analysis is currently available for Solana tokens only.";
