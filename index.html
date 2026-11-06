@@ -597,10 +597,15 @@ async function scanRisk() {
     result.textContent = "⚠️ Enter a Solana token address first.";
     return;
   }
-if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token)) {
-  result.textContent = "⚠️ Invalid Solana token address. Please check and try again.";
+
+const isSolanaAddress = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token);
+const isEvmAddress = /^0x[a-fA-F0-9]{40}$/.test(token);
+
+if (!isSolanaAddress && !isEvmAddress) {
+  result.textContent = "⚠️ Invalid token address. Please check and try again.";
   return;
 }
+
   result.textContent = "🔍 Checking market data...";
 
   try {
@@ -611,13 +616,22 @@ if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(token)) {
     if (!response.ok) throw new Error("Request failed");
 
     const data = await response.json();
-    const pair = data.pairs?.find(p =>
-      p.chainId === "solana" &&
-      p.baseToken?.address === token
-    );
+    
+const matchingPairs = (data.pairs || []).filter(p =>
+  p.chainId &&
+  (p.baseToken?.address?.toLowerCase() === token.toLowerCase() ||
+   p.quoteToken?.address?.toLowerCase() === token.toLowerCase()) &&
+  (isSolanaAddress ? p.chainId === "solana" : p.chainId !== "solana")
+);
+
+const pair = matchingPairs.sort(
+  (a, b) => (Number(b.liquidity?.usd) || 0) -
+            (Number(a.liquidity?.usd) || 0)
+)[0];
+
 
     if (!pair) {
-      result.textContent = "⚠️ No Solana trading pair found. Risk cannot be assessed.";
+      result.textContent = "⚠️ No supported trading pair found. Risk cannot be assessed.";
       return;
     }
 
@@ -669,7 +683,9 @@ const marketRiskRating =
 "Liquidity / Market Cap: " + (liquidityRatio == null ? "N/A" : liquidityRatio.toFixed(2) + "%") + "\n" +
      (warnings.length ? "⚠️ " + warnings.join("; ") : "No low-liquidity or low-volume flags detected.") +
       "\nMarket data only. Contract, holder and liquidity-lock risks are not verified.";
-const holderData = await getHolderConcentration(token);
+const holderData = pair.chainId === "solana"
+  ? await getHolderConcentration(token)
+  : { percentage: null, status: "Holder analysis currently available for Solana only" };
 
 if (holderData && Number.isFinite(holderData.percentage)) {
   result.textContent +=
@@ -680,7 +696,7 @@ if (holderData && Number.isFinite(holderData.percentage)) {
     " (indicative only; not a safety guarantee).";
 } else {
   result.textContent +=
-    "\n\n🔐 Wallet Transparency: Holder concentration data unavailable.";
+    "\n\n🔐 Wallet Transparency: " + holderData.status;
 }
     result.style.whiteSpace = "pre-line";
    
