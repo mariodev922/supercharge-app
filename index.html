@@ -679,6 +679,7 @@ if (liquidityRatio !== null && liquidityRatio < 1) {
       warnings.push("Market cap unavailable");
     }
 
+
 const marketRiskRating =
   liquidity == null || volume == null
     ? "⚪ Insufficient pool data"
@@ -686,8 +687,10 @@ const marketRiskRating =
     ? "🔴 Higher pool trading risk"
     : liquidity < 50000 || volume < 10000
     ? "🟠 Pool trading caution"
+    : liquidityRatio !== null && liquidityRatio < 1
+    ? "🟠 Pool valuation caution"
     : "🟢 No elevated pool trading flags";
-
+  
     result.textContent =
      "🔍 Market Risk Indicators\n" +
       "Blockchain: " + pair.chainId + " | Exchange: " + (pair.dexId || "Unknown") + "\n" +
@@ -709,7 +712,9 @@ if (holderData && Number.isFinite(holderData.percentage)) {
     holderData.percentage.toFixed(2) +
     "% of supply. " +
     checkHolderConcentration(holderData.percentage) +
-    " (indicative only; not a safety guarantee).";
+   
+" (not a safety guarantee).";
+  
 } else {
   result.textContent +=
     "\n\n🔐 Wallet Transparency: " + holderData.status;
