@@ -675,6 +675,7 @@ const marketRiskRating =
 
     result.textContent =
      "🔍 Market Risk Indicators\n" +
+      "Blockchain: " + pair.chainId + " | Exchange: " + (pair.dexId || "Unknown") + "\n" +
 "Market Risk Rating: " + marketRiskRating + "\n" +
 "Based on liquidity, 24h volume and liquidity-to-market-cap ratio.\n\n" +
       "Liquidity: " + (liquidity == null ? "N/A" : "$" + liquidity.toLocaleString()) + "\n" +
