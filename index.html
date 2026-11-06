@@ -703,12 +703,62 @@ function checkHolderConcentration(top10Percent) {
 
   return "🟢 Lower holder concentration";
 }
- async function getHolderConcentration(tokenAddress) {
-  return {
-    percentage: null,
-    status: "Holder data not connected yet"
-  };
+ 
+async function getHolderConcentration(tokenAddress) {
+  try {
+    const response = await fetch(
+      "/api/token-holders?mint=" + encodeURIComponent(tokenAddress)
+    );
+
+    if (!response.ok) {
+      throw new Error("Holder lookup failed");
+    }
+
+    const data = await response.json();
+    const holders = data.holders;
+
+    if (!Array.isArray(holders) || !holders.length) {
+      throw new Error("No holder data available");
+    }
+
+    const rawSupply = Number(data.totalSupply?.amount);
+    const decimals = Number(data.totalSupply?.decimals);
+
+    if (!Number.isFinite(rawSupply) || rawSupply <= 0) {
+      throw new Error("Invalid token supply");
+    }
+
+    if (!Number.isInteger(decimals) || decimals < 0) {
+      throw new Error("Invalid token decimals");
+    }
+
+    const top10Balance = holders.slice(0, 10).reduce(
+      (total, holder) =>
+        total + Number(holder.uiAmountString || 0),
+      0
+    );
+
+    const supply = rawSupply / Math.pow(10, decimals);
+    const percentage = (top10Balance / supply) * 100;
+
+    if (!Number.isFinite(percentage) || percentage < 0 ||
+        percentage > 100) {
+      throw new Error("Invalid concentration calculation");
+    }
+
+    return {
+      percentage: Number(percentage.toFixed(2)),
+      status: "Top 10 token accounts (indicative)"
+    };
+  } catch (error) {
+    console.error("Holder concentration error:", error);
+    return {
+      percentage: null,
+      status: "Holder concentration unavailable"
+    };
+  }
 }
+
  
 async function testSolanaConnection() {
   try {
