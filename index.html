@@ -226,7 +226,7 @@ const pair = pairs.sort((a, b) => {
 
   return Number(bPreferred) - Number(aPreferred);
 })[0];
-result.textContent +=
+const selectedPoolInfo =
   "Selected token: " + token +
   "\nSelected pair: " + pair.baseToken?.symbol +
   "/" + pair.quoteToken?.symbol +
