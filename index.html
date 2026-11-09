@@ -706,6 +706,7 @@ const marketRiskRating =
     result.textContent =
      "🔍 Market Risk Indicators\n" +
       "Blockchain: " + pair.chainId + " | Exchange: " + (pair.dexId || "Unknown") + "\n" +
+"Selected Pool: " + (pair.pairAddress || "Unavailable") + "\n" +      
 "Selected Pool Rating: " + marketRiskRating + "\n" +
 "Based on selected pool liquidity and 24h trading volume only. Not an overall token safety rating.\n\n" +
       "Liquidity: " + (liquidity == null ? "N/A" : "$" + liquidity.toLocaleString()) + "\n" +
