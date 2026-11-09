@@ -159,7 +159,8 @@ accountOwners.forEach((account, index) => {
   if (owner) {
     ownerCounts[owner] = (ownerCounts[owner] || 0) + 1;
 
-const balance = Number(tokenAccounts[index]?.uiAmountString ?? 0);
+const balance =
+  Number(tokenAccounts[index]?.amount ?? 0);
 if (Number.isFinite(balance)) {
   ownerBalances[owner] = (ownerBalances[owner] || 0) + balance;
 }
