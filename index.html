@@ -230,7 +230,7 @@ const selectedPoolInfo =
  "Selected token: " + token.slice(0, 6) + "..." + token.slice(-6) +
   "\nSelected pair: " + pair.baseToken?.symbol +
   "/" + pair.quoteToken?.symbol +
-  "\nPool: " + pair.pairAddress;    
+ "\nPool: " + pair.pairAddress.slice(0, 6) + "..." + pair.pairAddress.slice(-6);
 console.log("SUPERCHARGE selected pool:", {
   chain: pair.chainId,
   exchange: pair.dexId,
