@@ -262,11 +262,16 @@ if (url.pathname === "/api/wallet-activity") {
     if (data.error) {
       throw new Error("Solana RPC error");
     }
-
+const transactions = (data.result ?? []).map(tx => ({
+  signature: tx.signature,
+  timestamp: tx.blockTime ?? null,
+  status: tx.err ? "Failed" : "Success",
+  solscan: `https://solscan.io/tx/${tx.signature}`
+}));
     return Response.json({
       ok: true,
       wallet,
-      transactions: data.result ?? []
+      transactions
     });
   } catch (error) {
     return Response.json(
