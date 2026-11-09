@@ -229,21 +229,53 @@ accountLabel:
       }
     }
 
+
 if (url.pathname === "/api/wallet-activity") {
-  return new Response(
-    JSON.stringify({
-      ok: true,
-      feature: "Wallet Activity Alerts",
-      status: "Test endpoint working"
-    }),
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store"
-      }
+  const wallet = url.searchParams.get("wallet");
+
+  if (!wallet || !/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(wallet)) {
+    return Response.json(
+      { ok: false, error: "Enter a valid Solana wallet address." },
+      { status: 400 }
+    );
+  }
+
+  try {
+    const response = await fetch(env.HELIUS_RPC_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        id: 1,
+        method: "getSignaturesForAddress",
+        params: [wallet, { limit: 5 }]
+      }),
+      signal: AbortSignal.timeout(8000)
+    });
+
+    if (!response.ok) {
+      throw new Error("Helius request failed");
     }
-  );
+
+    const data = await response.json();
+
+    if (data.error) {
+      throw new Error("Solana RPC error");
+    }
+
+    return Response.json({
+      ok: true,
+      wallet,
+      transactions: data.result ?? []
+    });
+  } catch (error) {
+    return Response.json(
+      { ok: false, error: "Wallet activity lookup failed." },
+      { status: 502 }
+    );
+  }
 }
+
     
 
     // Test that our backend is working.
