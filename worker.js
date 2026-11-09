@@ -226,6 +226,23 @@ accountLabel:
       }
     }
 
+if (url.pathname === "/api/wallet-activity") {
+  return new Response(
+    JSON.stringify({
+      ok: true,
+      feature: "Wallet Activity Alerts",
+      status: "Test endpoint working"
+    }),
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "no-store"
+      }
+    }
+  );
+}
+    
+
     // Test that our backend is working.
     return Response.json({
       app: "SUPERCHARGE",
