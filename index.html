@@ -226,6 +226,11 @@ const pair = pairs.sort((a, b) => {
 
   return Number(bPreferred) - Number(aPreferred);
 })[0];
+result.textContent =
+  "Selected token: " + token +
+  "\nSelected pair: " + pair.baseToken?.symbol +
+  "/" + pair.quoteToken?.symbol +
+  "\nPool: " + pair.pairAddress;    
 console.log("SUPERCHARGE selected pool:", {
   chain: pair.chainId,
   exchange: pair.dexId,
