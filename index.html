@@ -170,6 +170,7 @@ showTokenHolders();
 
 <footer>SUPERCHARGE • Independent crypto research • Not financial advice</footer>
 <script>
+let selectedMarketPair = null;  
 async function searchToken() {
   const token = document.getElementById("token").value.trim();
   const result = document.getElementById("result");
@@ -226,6 +227,7 @@ const pair = pairs.sort((a, b) => {
 
   return Number(bPreferred) - Number(aPreferred);
 })[0];
+selectedMarketPair = pair;    
 const selectedPoolInfo =
  "Selected token: " + token.slice(0, 6) + "..." + token.slice(-6) +
   "\nSelected pair: " + pair.baseToken?.symbol +
@@ -637,16 +639,20 @@ const eligiblePairs = matchingPairs.filter(p => {
   return liquidity >= 10000 && volume >= 1000;
 });
 
-const pair = (eligiblePairs.length
-  ? eligiblePairs
-  : matchingPairs
-).sort((a, b) => {
-  const score = p =>
-    (Number(p.volume?.h24) || 0) *
-    Math.min(Number(p.liquidity?.usd) || 0, 1000000);
+const pair =
+  selectedMarketPair?.baseToken?.address?.toLowerCase() ===
+  token.toLowerCase()
+    ? selectedMarketPair
+    : (eligiblePairs.length
+        ? eligiblePairs
+        : matchingPairs
+      ).sort((a, b) => {
+        const score = p =>
+          (Number(p.volume?.h24) || 0) *
+          Math.min(Number(p.liquidity?.usd) || 0, 1000000);
 
-  return score(b) - score(a);
-})[0];
+        return score(b) - score(a);
+      })[0];
 
 
     if (!pair) {
