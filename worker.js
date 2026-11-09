@@ -37,10 +37,13 @@ export default {
     }, { status: 502 });
   }
 }
-    if (
+    
+if (
   url.pathname !== "/api/health" &&
-  url.pathname !== "/api/token-holders"
+  url.pathname !== "/api/token-holders" &&
+  url.pathname !== "/api/wallet-activity"
 ) {
+
       return env.ASSETS.fetch(request);
     }
 
