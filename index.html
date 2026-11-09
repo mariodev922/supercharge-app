@@ -227,7 +227,7 @@ const pair = pairs.sort((a, b) => {
   return Number(bPreferred) - Number(aPreferred);
 })[0];
 const selectedPoolInfo =
-  "Selected token: " + token +
+ "Selected token: " + token.slice(0, 6) + "..." + token.slice(-6) +
   "\nSelected pair: " + pair.baseToken?.symbol +
   "/" + pair.quoteToken?.symbol +
   "\nPool: " + pair.pairAddress;    
