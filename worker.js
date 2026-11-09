@@ -262,6 +262,43 @@ if (url.pathname === "/api/wallet-activity") {
     if (data.error) {
       throw new Error("Solana RPC error");
     }
+ const firstSignature = data.result?.[0]?.signature;
+
+let transactionDetails = null;
+
+if (firstSignature) {
+  const detailResponse = await fetch(env.HELIUS_RPC_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      jsonrpc: "2.0",
+      id: 2,
+      method: "getTransaction",
+      params: [
+        firstSignature,
+        {
+          encoding: "jsonParsed",
+          maxSupportedTransactionVersion: 0
+        }
+      ]
+    }),
+    signal: AbortSignal.timeout(8000)
+  });
+
+  if (!detailResponse.ok) {
+    throw new Error("Transaction detail request failed");
+  }
+
+  const detailData = await detailResponse.json();
+
+  if (detailData.error) {
+    throw new Error("Transaction detail RPC error");
+  }
+
+  transactionDetails = detailData.result ?? null;
+}   
 const transactions = (data.result ?? []).map(tx => ({
   signature: tx.signature,
   timestamp: tx.blockTime ?? null,
@@ -269,10 +306,11 @@ const transactions = (data.result ?? []).map(tx => ({
   solscan: `https://solscan.io/tx/${tx.signature}`
 }));
     return Response.json({
-      ok: true,
-      wallet,
-      transactions
-    });
+  ok: true,
+  wallet,
+  transactions,
+  transactionDetails
+});
   } catch (error) {
     return Response.json(
       { ok: false, error: "Wallet activity lookup failed." },
