@@ -319,7 +319,7 @@ if (transactionDetails?.meta?.preBalances &&
 
     if (Number.isFinite(before) && Number.isFinite(after)) {
       const decreaseSOL = (before - after) / 1e9;
-
+walletSOLChange = Number(((after - before) / 1e9).toFixed(4));
       if (decreaseSOL >= 100) {
         walletActivityAlert = {
           type: "large_sol_balance_decrease",
