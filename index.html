@@ -1781,6 +1781,29 @@ async function loadWalletActivity() {
 
     results.replaceChildren();
 
+if (data.walletActivityAlert) {
+  const alert = document.createElement("div");
+
+  alert.style.background = "#3b2b16";
+  alert.style.border = "1px solid #f0ad4e";
+  alert.style.borderRadius = "10px";
+  alert.style.padding = "12px";
+  alert.style.marginTop = "10px";
+  alert.style.marginBottom = "12px";
+  alert.style.color = "#ffd38a";
+
+  const title = document.createElement("strong");
+  title.textContent = "⚠️ Wallet Activity Notice";
+
+  const message = document.createElement("p");
+  message.textContent = data.walletActivityAlert.message;
+  message.style.marginBottom = "0";
+
+  alert.appendChild(title);
+  alert.appendChild(message);
+  results.appendChild(alert);
+}
+
     const transactions = data.transactions || [];
 
     if (transactions.length === 0) {
