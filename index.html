@@ -1780,7 +1780,15 @@ async function loadWalletActivity() {
     }
 
     results.replaceChildren();
+const testWalletAlert = new URLSearchParams(
+  window.location.search
+).has("testWalletAlert");
 
+if (testWalletAlert && !data.walletActivityAlert) {
+  data.walletActivityAlert = {
+    message: "TEST ONLY: Wallet Activity warning display is working. This is not a real blockchain alert."
+  };
+}
 if (data.walletActivityAlert) {
   const alert = document.createElement("div");
 
