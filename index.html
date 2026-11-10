@@ -1804,7 +1804,26 @@ if (data.walletActivityAlert) {
   alert.appendChild(message);
   results.appendChild(alert);
 }
+if (typeof data.walletSOLChange === "number") {
+  const balance = document.createElement("p");
 
+  const change = data.walletSOLChange;
+
+  balance.textContent =
+    "SOL balance change (latest transaction): " +
+    (change > 0 ? "+" : "") +
+    change.toFixed(4) +
+    " SOL";
+
+  balance.style.color =
+    change > 0 ? "#43e6a0" :
+    change < 0 ? "#ff8585" : "#a9bfd8";
+
+  balance.style.fontWeight = "bold";
+  balance.style.marginTop = "12px";
+
+  results.appendChild(balance);
+}
     const transactions = data.transactions || [];
 
     if (transactions.length === 0) {
