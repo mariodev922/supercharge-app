@@ -296,10 +296,11 @@ if (firstSignature) {
   const detailData = await detailResponse.json();
 
   if (detailData.error) {
-    throw new Error("Transaction detail RPC error");
-  }
-
+  console.error("Transaction detail RPC error:", detailData.error);
+  transactionDetails = null;
+} else {
   transactionDetails = detailData.result ?? null;
+}
 }   
 const transactions = (data.result ?? []).map(tx => ({
   signature: tx.signature,
