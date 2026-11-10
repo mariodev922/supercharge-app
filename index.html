@@ -1771,7 +1771,11 @@ async function loadWalletActivity() {
 
   try {
     const response = await fetch(
-      "/api/wallet-activity?wallet=" + encodeURIComponent(wallet)
+     "/api/wallet-activity?wallet=" +
+encodeURIComponent(wallet) +
+(window.location.search.includes("testWalletAlert=1")
+  ? "&testWalletAlert=1"
+  : "")
     );
     const data = await response.json();
 
