@@ -330,7 +330,17 @@ if (transactionDetails?.meta?.preBalances &&
     }
   }
 }
-      
+// Temporary test: verify wallet alert display
+const testWalletAlert =
+  new URL(request.url).searchParams.has("testWalletAlert");
+
+if (testWalletAlert) {
+  walletActivityAlert = {
+    type: "test_only",
+    amountSOL: 100,
+    message: "TEST ONLY: Simulated 100 SOL balance decrease. No real blockchain movement detected."
+  };
+}      
 const transactions = (data.result ?? []).map(tx => ({
   signature: tx.signature,
   timestamp: tx.blockTime ?? null,
