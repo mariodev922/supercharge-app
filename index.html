@@ -1755,6 +1755,81 @@ results.appendChild(link);
 results.textContent = "Holder analysis error: " + (error?.message || String(error));
   }
 }
+
+async function loadWalletActivity() {
+  const wallet = document.getElementById("activityWallet").value.trim();
+  const results = document.getElementById("walletActivityResults");
+
+  results.textContent = "";
+
+  if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(wallet)) {
+    results.textContent = "⚠️ Enter a valid Solana wallet address.";
+    return;
+  }
+
+  results.textContent = "🔄 Loading wallet activity...";
+
+  try {
+    const response = await fetch(
+      "/api/wallet-activity?wallet=" + encodeURIComponent(wallet)
+    );
+    const data = await response.json();
+
+    if (!response.ok || !data.ok) {
+      throw new Error(data.error || "Wallet lookup failed.");
+    }
+
+    results.replaceChildren();
+
+    const transactions = data.transactions || [];
+
+    if (transactions.length === 0) {
+      results.textContent = "No recent transactions found.";
+      return;
+    }
+
+    const heading = document.createElement("p");
+    heading.textContent = "Recent transactions (" + transactions.length + ")";
+    results.appendChild(heading);
+
+    transactions.forEach((tx, index) => {
+      const item = document.createElement("div");
+      item.style.padding = "12px";
+      item.style.marginTop = "10px";
+      item.style.background = "#102747";
+      item.style.borderRadius = "10px";
+      item.style.overflowWrap = "anywhere";
+
+      const status = document.createElement("p");
+      status.textContent = (index + 1) + ". " + tx.status;
+      item.appendChild(status);
+
+      const date = document.createElement("small");
+      date.textContent = tx.timestamp
+        ? new Date(tx.timestamp * 1000).toLocaleString()
+        : "Date unavailable";
+      item.appendChild(date);
+
+      const signature = document.createElement("p");
+      signature.textContent = "Transaction: " + tx.signature.slice(0, 12) + "...";
+      item.appendChild(signature);
+
+      const link = document.createElement("a");
+      link.href = "https://solscan.io/tx/" + encodeURIComponent(tx.signature);
+      link.textContent = "🔗 View on Solscan";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.style.color = "#39bfff";
+      item.appendChild(link);
+
+      results.appendChild(item);
+    });
+
+  } catch (error) {
+    results.textContent = "⚠️ " + error.message;
+  }
+}
+  
 </script>
 </body>
 </html>
