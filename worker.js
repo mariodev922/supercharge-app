@@ -288,9 +288,11 @@ if (firstSignature) {
   });
 
   if (!detailResponse.ok) {
-    throw new Error("Transaction detail request failed");
-  }
-
+  const errorText = await detailResponse.text();
+  throw new Error(
+    `Helius HTTP ${detailResponse.status}: ${errorText.slice(0, 200)}`
+  );
+}
   const detailData = await detailResponse.json();
 
   if (detailData.error) {
@@ -312,6 +314,7 @@ const transactions = (data.result ?? []).map(tx => ({
   transactionDetails
 });
   } catch (error) {
+    console.error("Wallet activity error:", error);
     return Response.json(
       { ok: false, error: "Wallet activity lookup failed." },
       { status: 502 }
