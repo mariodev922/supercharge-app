@@ -296,6 +296,7 @@ if (firstSignature) {
   const detailData = await detailResponse.json();
 
   if (detailData.error) {
+  console.error("Helius transaction RPC error:", JSON.stringify(detailData.error));  
   console.error("Transaction detail RPC error:", detailData.error);
   transactionDetails = null;
 } else {
