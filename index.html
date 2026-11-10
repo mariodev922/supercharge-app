@@ -1801,20 +1801,26 @@ async function loadWalletActivity() {
       item.style.overflowWrap = "anywhere";
 
       const status = document.createElement("p");
+  status.style.margin = "4px 0";    
       status.textContent = (index + 1) + ". " + tx.status;
       item.appendChild(status);
 
       const date = document.createElement("small");
+ date.style.display = "block";
+date.style.margin = "4px 0";     
       date.textContent = tx.timestamp
         ? new Date(tx.timestamp * 1000).toLocaleString()
         : "Date unavailable";
       item.appendChild(date);
 
       const signature = document.createElement("p");
+signature.style.margin = "4px 0";      
       signature.textContent = "Transaction: " + tx.signature.slice(0, 12) + "...";
       item.appendChild(signature);
 
       const link = document.createElement("a");
+  link.style.display = "inline-block";
+link.style.margin = "4px 0";    
       link.href = "https://solscan.io/tx/" + encodeURIComponent(tx.signature);
       link.textContent = "🔗 View on Solscan";
       link.target = "_blank";
