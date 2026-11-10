@@ -136,6 +136,24 @@ showTokenHolders();
 </div>
 
 <div class="card">
+  <h3>🔎 Wallet Activity</h3>
+  <p>Explore recent Solana wallet transactions.</p>
+  <input
+    id="activityWallet"
+    placeholder="Paste Solana wallet address"
+    style="width:100%;box-sizing:border-box;"
+  >
+  <button onclick="loadWalletActivity()">
+    🔄 Check Wallet Activity
+  </button>
+  <div id="walletActivityResults"></div>
+  <small>
+    Transaction history is informational only.
+    Activity does not prove suspicious behaviour.
+  </small>
+</div>
+
+<div class="card">
   <h3>📈 Market Charts</h3>
   <p>Explore live Solana token charts.</p>
   <button onclick="document.getElementById('tokenChart').scrollIntoView({behavior:'smooth'})">
