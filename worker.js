@@ -305,7 +305,7 @@ if (firstSignature) {
 }  
 
 let walletActivityAlert = null;
-
+let walletSOLChange = null;
 if (transactionDetails?.meta?.preBalances &&
     transactionDetails?.meta?.postBalances) {
   const keys = transactionDetails.transaction?.message?.accountKeys ?? [];
