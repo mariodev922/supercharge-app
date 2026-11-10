@@ -302,19 +302,50 @@ if (firstSignature) {
 } else {
   transactionDetails = detailData.result ?? null;
 }
-}   
+}  
+
+let walletActivityAlert = null;
+
+if (transactionDetails?.meta?.preBalances &&
+    transactionDetails?.meta?.postBalances) {
+  const keys = transactionDetails.transaction?.message?.accountKeys ?? [];
+  const walletIndex = keys.findIndex(
+    key => (typeof key === "string" ? key : key.pubkey) === wallet
+  );
+
+  if (walletIndex !== -1) {
+    const before = transactionDetails.meta.preBalances[walletIndex];
+    const after = transactionDetails.meta.postBalances[walletIndex];
+
+    if (Number.isFinite(before) && Number.isFinite(after)) {
+      const decreaseSOL = (before - after) / 1e9;
+
+      if (decreaseSOL >= 100) {
+        walletActivityAlert = {
+          type: "large_sol_balance_decrease",
+          amountSOL: Number(decreaseSOL.toFixed(4)),
+          message: "Large SOL balance decrease detected in the latest transaction. This does not necessarily indicate a transfer, sale or suspicious activity."
+        };
+      }
+    }
+  }
+}
+      
 const transactions = (data.result ?? []).map(tx => ({
   signature: tx.signature,
   timestamp: tx.blockTime ?? null,
   status: tx.err ? "Failed" : "Success",
   solscan: `https://solscan.io/tx/${tx.signature}`
 }));
-    return Response.json({
+    
+return Response.json({
   ok: true,
   wallet,
   transactions,
-  transactionDetails
+  transactionDetails,
+  walletActivityAlert
 });
+
   } catch (error) {
     console.error("Wallet activity error:", error);
     return Response.json(
