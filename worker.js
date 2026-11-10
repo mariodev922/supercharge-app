@@ -343,7 +343,8 @@ return Response.json({
   wallet,
   transactions,
   transactionDetails,
-  walletActivityAlert
+  walletActivityAlert,
+  walletSOLChange
 });
 
   } catch (error) {
