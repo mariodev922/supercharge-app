@@ -280,7 +280,7 @@ if (firstSignature) {
         firstSignature,
         {
           encoding: "jsonParsed",
-          maxSupportedTransactionVersion: 0
+          maxSupportedTransactionVersion: 1
         }
       ]
     }),
