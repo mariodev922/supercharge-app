@@ -284,7 +284,7 @@ if (firstSignature) {
         }
       ]
     }),
-    signal: AbortSignal.timeout(8000)
+    signal: AbortSignal.timeout(15000)
   });
 
   if (!detailResponse.ok) {
